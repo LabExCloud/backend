@@ -1,0 +1,71 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="main">
+        <div class="section">
+            <div class="top_navbar">
+                <div class="hamburger">
+                    <!-- <a href="#">
+                        <i class="fas fa-bars"></i>
+                    </a> -->
+                    <!-- <h1>testing</h1> -->
+                    <p>{% block header %}{% endblock %}</p>
+                </div>
+            </div>
+
+            {% block content %}{% endblock %}
+        
+        </div>
+
+        <div class="menu-sidebar">
+            <div class="profile">
+                <img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="student picture">
+                <h3> Isabella Ava </h3>
+                <p> S7 - 51 </p>
+            </div>
+            <ul>
+                <li>
+                    <a href="{% url 'lab' %}" class="active">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">Lab</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'exam' %}">
+                        <span class="icon"><i class="far fa-keyboard"></i></span>
+                        <span class="item">Exam</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'resources' %}">
+                        <span class="icon"><i class="fas fa-book"></i></span>
+                        <span class="item">Resources</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'profile' %}">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="item">Profile Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../index.html">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="item">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+         
+     </div>
+</body>
+</html>
