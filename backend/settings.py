@@ -28,11 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/student/login/'
+
+LOGIN_REDIRECT_URL = '/student/profile/'
+
+LOGOUT_REDIRECT_URL = '/student/login/'
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'student.app.StudentConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
