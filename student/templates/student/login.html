@@ -6,7 +6,7 @@
 <div class="main">
     <div class="auth">
         {% if form.errors %}
-            <p>Your username and password didn't match. Please try again.</p>
+            <p style="color:red;font-size:medium;">Your username and password didn't match. Please try again.</p>
         {% endif %}
         <form id="login-form" method="post">
             {% csrf_token %}
