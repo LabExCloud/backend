@@ -10,6 +10,14 @@ class Profile(models.Model):
     rollno = models.IntegerField(blank=True, null=True)
     phone = models.CharField(max_length=13, blank=True, null=True)
 
+    def __str__(self):
+        return self.user.username
+    
+    def get_image(self):
+        if self.image:
+            return 'http://127.0.0.1:8000' + self.image.url
+        return ''
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -9,11 +9,10 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = (
-            'image',
+            'get_image',
             'semester',
             'rollno',
             'phone',
-            'image',
         )
 
 
