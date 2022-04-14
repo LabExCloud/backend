@@ -12,6 +12,7 @@ class UserAdmin(BaseUserAdmin):
             'Other Personal info',
             {
                 'fields': (
+                    'middle_name',
                     'image',
                     'phone'
                 )
