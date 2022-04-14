@@ -5,8 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Profile
-from .serializers import ProfileSerializer, UserSerializer
+from .serializers import UserSerializer
 
 from .permissions import OwnProfilePermission
 

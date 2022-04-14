@@ -2,12 +2,23 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from .models import Profile
+from .models import Student, Teacher
     
 
-class ProfileSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Profile
+        model = Student
+        fields = (
+            'get_image',
+            'semester',
+            'rollno',
+            'phone',
+        )
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
         fields = (
             'get_image',
             'semester',
@@ -17,7 +28,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(read_only=True)
+    profile = serializers.SerializerMethodField()
+
     class Meta:
         model = User
         fields = (
@@ -25,5 +37,15 @@ class UserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'email',
-            'profile'
+            'profile',
+            'is_superuser',
+            'is_staff',
         )
+    
+    def get_profile(self, user):
+        if ((not user.is_superuser) & (not user.is_staff)):
+            student = Student.objects.get(user=user)
+            return StudentSerializer(student, read_only=True).data
+        elif ((not user.is_superuser) & (user.is_staff)):
+            teacher = Teacher.objects.get(user=user)
+            return TeacherSerializer(teacher, read_only=True).data
