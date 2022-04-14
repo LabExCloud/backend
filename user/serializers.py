@@ -10,6 +10,7 @@ class StudentSerializer(serializers.ModelSerializer):
             'semester',
             'rollno',
         )
+        depth = 2
 
 
 class TeacherSerializer(serializers.ModelSerializer):
