@@ -16,8 +16,8 @@ class User(AbstractUser):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,)
-    semester = models.IntegerField(blank=True, null=True)
     rollno = models.IntegerField(blank=True, null=True)
+    semester = models.ForeignKey('base.Semester', on_delete=models.CASCADE)
     # department
 
     def __str__(self):
