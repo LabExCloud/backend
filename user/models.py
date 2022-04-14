@@ -18,7 +18,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,)
     rollno = models.IntegerField(blank=True, null=True)
     semester = models.ForeignKey('base.Semester', on_delete=models.CASCADE)
-    # department
+    department = models.ForeignKey('base.Department', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
@@ -36,7 +36,7 @@ class Student(models.Model):
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,)
-    # department
+    department = models.ForeignKey('base.Department', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
