@@ -9,6 +9,7 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = (
             'semester',
             'rollno',
+            'year',
         )
         depth = 2
 
@@ -17,8 +18,7 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = (
-            'semester',
-            'rollno',
+            'department',
         )
 
 
