@@ -21,3 +21,6 @@ class ResourceFile(models.Model):
     
     def __str__(self):
         return self.filename()
+    
+    def url(self):
+        return 'http://127.0.0.1:8000' + self.file.url

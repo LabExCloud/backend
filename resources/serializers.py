@@ -10,7 +10,8 @@ class ResourceFileSerializer(serializers.ModelSerializer):
         model = ResourceFile
         fields = (
             'id',
-            'file',
+            'url',
+            'filename',
         )
 
 class ResourceSerializer(serializers.ModelSerializer):
@@ -18,6 +19,7 @@ class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resource
         fields = (
+            'id',
             'res_name',
             'created',
             'modified',
@@ -34,6 +36,7 @@ class SubjectResourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = (
+            'id',
             'subject',
             'resources',
         )
