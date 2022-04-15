@@ -14,18 +14,18 @@ class ResourceFileSerializer(serializers.ModelSerializer):
         )
 
 class ResourceSerializer(serializers.ModelSerializer):
-    resourcefiles = serializers.SerializerMethodField()
+    resource_files = serializers.SerializerMethodField()
     class Meta:
         model = Resource
         fields = (
             'res_name',
             'created',
             'modified',
-            'resourcefiles'
+            'resource_files'
         )
         depth = 1
     
-    def get_resourcefiles(self, obj):
+    def get_resource_files(self, obj):
         serializer = ResourceFileSerializer(ResourceFile.objects.filter(resource=obj), many=True)
         return serializer.data
 
