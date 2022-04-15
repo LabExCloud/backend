@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'user',
     'base',
+    'resources'
 ]
 
 CORS_ALLOWED_ORIGINS = [
