@@ -4,14 +4,29 @@ from .models import Student, Teacher, User
     
 
 class StudentSerializer(serializers.ModelSerializer):
+    semester = serializers.SerializerMethodField()
+    department = serializers.SerializerMethodField()
+    department_code = serializers.SerializerMethodField()
+
     class Meta:
         model = Student
         fields = (
+            'department',
+            'department_code',
             'semester',
             'rollno',
             'year',
         )
         depth = 2
+    
+    def get_semester(self, obj):
+        return obj.semester.semester
+    
+    def get_department_code(self, obj):
+        return obj.semester.department.department_code
+    
+    def get_department(self, obj):
+        return obj.semester.department.department
 
 
 class TeacherSerializer(serializers.ModelSerializer):
