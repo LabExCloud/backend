@@ -2,9 +2,12 @@ from django.db import models
 
 import os
 
+from base.models import Class
+
 class Resource(models.Model):
-    subject = models.ForeignKey('base.Subject', on_delete=models.CASCADE)
+    class_a = models.ForeignKey(Class, on_delete=models.CASCADE)
     res_name = models.CharField(max_length=50)
+    description = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -13,7 +16,7 @@ class Resource(models.Model):
 
 
 class ResourceFile(models.Model):
-    resource = models.ForeignKey('Resource', on_delete=models.CASCADE)
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploads/resources', )
 
     def filename(self):

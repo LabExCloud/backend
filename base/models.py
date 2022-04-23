@@ -1,26 +1,46 @@
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 class Department(models.Model):
-    department = models.CharField(max_length=50)
-    department_code = models.CharField(max_length=4)
+    dept_name = models.CharField(max_length=50)
+    dept_code = models.CharField(max_length=4)
 
     def __str__(self):
-        return self.department
+        return self.dept_name
 
 
 class Semester(models.Model):
-    semester = models.IntegerField(blank=True, null=True)
-    department = models.ForeignKey('Department', on_delete=models.CASCADE)
+    sem = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return 'S' + str(self.semester) + ' - ' + self.department.department_code
+        return 'S' + str(self.sem)
+
+
+class Batch(models.Model):
+    class Stream(models.TextChoices):
+        BTECH = 'B.Tech', _('B.Tech')
+        MTECH = 'M.Tech', _('M.Tech')
+    
+    year = models.IntegerField()
+    stream = models.CharField(max_length=8, choices=Stream.choices, default=Stream.BTECH)
+    models.UniqueConstraint(fields=['year', 'stream'], name='unique_batch')
+
+    def __str__(self):
+        return str(self.year) + ' - ' + self.stream
     
 
 class Subject(models.Model):
-    subject = models.CharField(max_length=100)
-    subject_code = models.CharField(max_length=6)
-    semester = models.ForeignKey('Semester', on_delete=models.CASCADE)
+    sub_name = models.CharField(max_length=100)
+    sub_code = models.CharField(max_length=6)
     
     def __str__(self):
-        return self.subject
+        return self.sub_name
+
+class Class(models.Model):
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.batch.year) + ' - ' + self.department.dept_code + ' - S' + str(self.semester.sem) + ' - ' + self.subject.sub_name
