@@ -5,36 +5,43 @@ from .models import Student, Teacher, User
 
 class StudentSerializer(serializers.ModelSerializer):
     semester = serializers.SerializerMethodField()
-    department = serializers.SerializerMethodField()
-    department_code = serializers.SerializerMethodField()
+    dept_name = serializers.SerializerMethodField()
+    dept_code = serializers.SerializerMethodField()
+    year = serializers.SerializerMethodField()
+    stream = serializers.SerializerMethodField()
 
     class Meta:
         model = Student
         fields = (
-            'department',
-            'department_code',
+            'dept_name',
+            'dept_code',
             'semester',
             'rollno',
             'year',
+            'stream'
         )
         depth = 2
     
     def get_semester(self, obj):
-        return obj.semester.semester
+        return obj.semester.sem
     
-    def get_department_code(self, obj):
-        return obj.semester.department.department_code
+    def get_dept_code(self, obj):
+        return obj.department.dept_code
     
-    def get_department(self, obj):
-        return obj.semester.department.department
+    def get_dept_name(self, obj):
+        return obj.department.dept_name
+
+    def get_year(self, obj):
+        return obj.batch.year
+
+    def get_stream(self, obj):
+        return obj.batch.stream
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = (
-            'department',
-        )
+        fields = ()
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -48,11 +55,11 @@ class UserSerializer(serializers.ModelSerializer):
             'middle_name',
             'last_name',
             'email',
-            'profile',
             'is_superuser',
             'is_staff',
             'phone',
             'get_image',
+            'profile',
         )
     
     def get_profile(self, user):
