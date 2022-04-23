@@ -1,27 +1,19 @@
-from django.shortcuts import render
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import ResourceSerializer, SubjectResourceSerializer
-from .models import Resource
-
-from user.models import User
+from .serializers import ClassResourceSerializer
 
 
 class ResourceList(APIView):
     def get(self, request, format=None):
-        q = request.user.student.semester.subject_set.all()
-        # print(q)
-        resources = Resource.objects.filter(subject__in=q)
-        # print(resources)
-        serializer = SubjectResourceSerializer(q, many=True)
+        sem = request.user.student.semester
+        classes = request.user.student.classes.filter(semester=sem)
+        serializer = ClassResourceSerializer(classes, many=True)
         return Response(serializer.data)
 
-    # def get(self, request, format=None):
-    #     q = request.user.student.semester.subject_set.all()
-    #     print(q)
-    #     resources = Resource.objects.filter(subject__in=q)
-    #     print(resources)
-    #     serializer = ResourceSerializer(resources, many=True)
-    #     return Response(serializer.data)
+
+class ResourceListSem(APIView):
+    def get(self, request, sem, format=None):
+        classes = request.user.student.classes.filter(semester=sem)
+        serializer = ClassResourceSerializer(classes, many=True)
+        return Response(serializer.data)

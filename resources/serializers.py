@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import Resource, ResourceFile
 
-from base.models import Subject
+from base.models import Class
 
 
 class ResourceFileSerializer(serializers.ModelSerializer):
@@ -14,34 +14,45 @@ class ResourceFileSerializer(serializers.ModelSerializer):
             'filename',
         )
 
+
 class ResourceSerializer(serializers.ModelSerializer):
-    resource_files = serializers.SerializerMethodField()
+    res_files = serializers.SerializerMethodField()
     class Meta:
         model = Resource
         fields = (
             'id',
             'res_name',
+            'description',
             'created',
             'modified',
-            'resource_files'
+            'res_files'
         )
-        depth = 1
     
-    def get_resource_files(self, obj):
+    def get_res_files(self, obj):
         serializer = ResourceFileSerializer(ResourceFile.objects.filter(resource=obj), many=True)
         return serializer.data
 
-class SubjectResourceSerializer(serializers.ModelSerializer):
+
+class ClassResourceSerializer(serializers.ModelSerializer):
     resources = serializers.SerializerMethodField()
+    sub_name = serializers.SerializerMethodField()
+    sub_code = serializers.SerializerMethodField()
+
     class Meta:
-        model = Subject
+        model = Class
         fields = (
             'id',
-            'subject',
+            'sub_name',
+            'sub_code',
             'resources',
         )
-        depth = 3
     
     def get_resources(self, obj):
-        serializer = ResourceSerializer(Resource.objects.filter(subject=obj), many=True)
+        serializer = ResourceSerializer(Resource.objects.filter(class_a=obj), many=True)
         return serializer.data
+    
+    def get_sub_name(self, obj):
+        return obj.subject.sub_name
+    
+    def get_sub_code(self, obj):
+        return obj.subject.sub_code
