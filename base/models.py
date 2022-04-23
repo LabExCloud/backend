@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class Department(models.Model):
     dept_name = models.CharField(max_length=50)
     dept_code = models.CharField(max_length=4)
@@ -35,6 +36,7 @@ class Subject(models.Model):
     
     def __str__(self):
         return self.sub_name
+
 
 class Class(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
