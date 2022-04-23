@@ -12,7 +12,7 @@ class Resource(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.subject.subject + ' - ' + self.res_name
+        return self.class_a.subject.sub_name + ' - ' + self.res_name
 
 
 class ResourceFile(models.Model):
