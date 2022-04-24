@@ -43,6 +43,7 @@ class Class(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    owner = models.ForeignKey('user.Teacher', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return str(self.batch.year) + ' - ' + self.department.dept_code + ' - S' + str(self.semester.sem) + ' - ' + self.subject.sub_name
