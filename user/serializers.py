@@ -5,6 +5,7 @@ from .models import Student, Teacher, User
 
 class StudentSerializer(serializers.ModelSerializer):
     semester = serializers.SerializerMethodField()
+    semesters = serializers.SerializerMethodField()
     dept_name = serializers.SerializerMethodField()
     dept_code = serializers.SerializerMethodField()
     year = serializers.SerializerMethodField()
@@ -16,14 +17,20 @@ class StudentSerializer(serializers.ModelSerializer):
             'dept_name',
             'dept_code',
             'semester',
+            'semesters',
             'rollno',
             'year',
             'stream'
         )
-        depth = 2
     
     def get_semester(self, obj):
         return obj.semester.sem
+    
+    def get_semesters(self, obj):
+        semesters = []
+        for i in obj.classes.all():
+            semesters.append(i.semester.sem)
+        return set(semesters)
     
     def get_dept_code(self, obj):
         return obj.department.dept_code
