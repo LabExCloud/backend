@@ -3,8 +3,6 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 
-from base.models import Department, Semester, Batch, Class
-
 
 class User(AbstractUser):
     middle_name = models.CharField(max_length=20, blank=True, null=True)
@@ -18,12 +16,12 @@ class User(AbstractUser):
 
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,)
+    user = models.OneToOneField('User', on_delete=models.CASCADE, null=True,)
     rollno = models.IntegerField(blank=True, null=True)
-    department = models.ForeignKey(Department, on_delete=models.PROTECT)
-    semester = models.ForeignKey(Semester, on_delete=models.PROTECT)
-    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
-    classes = models.ManyToManyField(Class)
+    department = models.ForeignKey('base.Department', on_delete=models.PROTECT)
+    semester = models.ForeignKey('base.Semester', on_delete=models.PROTECT)
+    batch = models.ForeignKey('base.Batch', on_delete=models.CASCADE)
+    classes = models.ManyToManyField('classes.Class')
 
     def __str__(self):
         return self.user.username
@@ -34,9 +32,8 @@ def auto_delete_user_with_profile(sender, instance, **kwargs):
 
 
 class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,)
-    department = models.ForeignKey(Department, on_delete=models.PROTECT)
-    classes = models.ManyToManyField(Class)
+    user = models.OneToOneField('User', on_delete=models.CASCADE, null=True,)
+    department = models.ForeignKey('base.Department', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.user.username

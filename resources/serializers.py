@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import Resource, ResourceFile
 
-from base.models import Class
+from classes.models import Class
 
 
 class ResourceFileSerializer(serializers.ModelSerializer):
