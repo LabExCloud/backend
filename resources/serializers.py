@@ -13,6 +13,25 @@ class ResourceFileSerializer(serializers.ModelSerializer):
             'url',
             'filename',
         )
+    
+
+class ResourceDetailSerializer(serializers.ModelSerializer):
+    res_files = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Resource
+        fields = (
+            'id',
+            'res_name',
+            'description',
+            'created',
+            'modified',
+            'res_files',
+        )
+    
+    def get_res_files(self, obj):
+        serializer = ResourceFileSerializer(ResourceFile.objects.filter(resource=obj), many=True)
+        return serializer.data
 
 
 class ResourceSerializer(serializers.ModelSerializer):
