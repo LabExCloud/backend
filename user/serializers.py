@@ -30,7 +30,7 @@ class StudentSerializer(serializers.ModelSerializer):
         semesters = []
         for i in obj.classes.all():
             semesters.append(i.semester.sem)
-        return set(semesters)
+        return list(set(semesters))
     
     def get_dept_code(self, obj):
         return obj.department.dept_code
