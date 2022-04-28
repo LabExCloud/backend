@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import LabExperiments, LabQuestions, LabAnswers
+
+admin.site.register(LabExperiments)
+admin.site.register(LabQuestions)
+admin.site.register(LabAnswers)
