@@ -12,7 +12,8 @@ class LabExam(models.Model):
 class LabExamQuestion(models.Model):
     experiment = models.ForeignKey('LabExam', on_delete=models.CASCADE)
     question_number = models.IntegerField()
-    question = models.TextField(max_length=500, blank=True, null=True)
+    question = models.TextField(max_length=500, blank=True)
+    language = models.ForeignKey('editor.Language', on_delete=models.PROTECT)
     # implement testcases 
     # answer = models.FileField(upload_to='uploads/lab/questions', )
 
