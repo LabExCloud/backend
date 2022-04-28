@@ -3,7 +3,7 @@ from django.db import models
 
 class LabExperiments(models.Model):
     exp_name = models.CharField(max_length=50)
-    subject = models.ForeignKey('classes.Class', on_delete=models.CASCADE)
+    class_a = models.ForeignKey('classes.Class', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     due_date = models.DateTimeField()
