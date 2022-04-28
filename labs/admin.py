@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import LabExperiments, LabQuestions, LabAnswers
+from .models import LabExperiment, LabQuestion, LabAnswer
 
-admin.site.register(LabExperiments)
-admin.site.register(LabQuestions)
-admin.site.register(LabAnswers)
+admin.site.register(LabExperiment)
+admin.site.register(LabQuestion)
+admin.site.register(LabAnswer)
