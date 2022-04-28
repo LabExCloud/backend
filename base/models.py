@@ -3,15 +3,15 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Department(models.Model):
-    dept_name = models.CharField(max_length=50)
-    dept_code = models.CharField(max_length=4)
+    dept_name = models.CharField(max_length=50, unique=True)
+    dept_code = models.CharField(max_length=4, unique=True)
 
     def __str__(self):
         return self.dept_name
 
 
 class Semester(models.Model):
-    sem = models.IntegerField(blank=True, null=True)
+    sem = models.IntegerField(blank=True, unique=True)
 
     def __str__(self):
         return 'S' + str(self.sem)
@@ -32,7 +32,7 @@ class Batch(models.Model):
 
 class Subject(models.Model):
     sub_name = models.CharField(max_length=100)
-    sub_code = models.CharField(max_length=6)
+    sub_code = models.CharField(max_length=6, unique=True)
     
     def __str__(self):
         return self.sub_name

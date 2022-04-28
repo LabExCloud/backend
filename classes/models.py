@@ -9,5 +9,7 @@ class Class(models.Model):
     owner = models.ForeignKey('user.Teacher', on_delete=models.SET_NULL, null=True)
     teachers = models.ManyToManyField('user.Teacher', related_name='classes')
 
+    models.UniqueConstraint(fields=['department', 'semester', 'subject', 'batch'], name='unique_class')
+
     def __str__(self):
         return str(self.batch.year) + ' - ' + self.department.dept_code + ' - S' + str(self.semester.sem) + ' - ' + self.subject.sub_name
