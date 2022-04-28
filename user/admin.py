@@ -14,7 +14,8 @@ class UserAdmin(BaseUserAdmin):
                 'fields': (
                     'middle_name',
                     'image',
-                    'phone'
+                    'phone',
+                    'user_type'
                 )
             }
         )

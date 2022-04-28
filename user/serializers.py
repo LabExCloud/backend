@@ -62,11 +62,10 @@ class UserSerializer(serializers.ModelSerializer):
             'middle_name',
             'last_name',
             'email',
-            'is_superuser',
-            'is_staff',
             'phone',
             'get_image',
             'profile',
+            'user_type',
         )
     
     def get_profile(self, user):

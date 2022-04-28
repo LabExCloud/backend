@@ -2,9 +2,16 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
+    class UserType(models.TextChoices):
+        STUDENT = 'student', _('Student')
+        TEACHER = 'teacher', _('Teacher')
+        ADMIN = 'admin', _('Admin')
+    
+    user_type = models.CharField(max_length=8, choices=UserType.choices)
     middle_name = models.CharField(max_length=20, blank=True, null=True)
     image = models.ImageField(upload_to='uploads/profile/', blank=True, null=True)
     phone = models.CharField(max_length=13, blank=True, null=True)
