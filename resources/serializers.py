@@ -14,6 +14,9 @@ class ResourceFileSerializer(serializers.ModelSerializer):
             'filename',
         )
     
+    def create(self, data):
+        return ResourceFile.objects.create(**data)
+    
 
 class ResourceDetailSerializer(serializers.ModelSerializer):
     res_files = serializers.SerializerMethodField()
@@ -44,6 +47,15 @@ class ResourceSerializer(serializers.ModelSerializer):
             'created',
             'modified',
         )
+    
+    def create(self, data):
+        return Resource.objects.create(**data)
+    
+    def update(self, instance, data):
+        instance.res_name = data.get('res_name', instance.res_name)
+        instance.description = data.get('description', instance.description)
+        instance.save()
+        return instance
 
 
 class ClassResourceSerializer(serializers.ModelSerializer):
