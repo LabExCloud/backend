@@ -7,6 +7,7 @@ class LabExperiment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     due_date = models.DateTimeField()
+    total_marks = models.IntegerField()
 
 
 class LabQuestion(models.Model):
@@ -16,6 +17,7 @@ class LabQuestion(models.Model):
     language = models.ForeignKey('editor.Language', on_delete=models.PROTECT)
     # implement testcases 
     # answer = models.FileField(upload_to='uploads/lab/questions', )
+    mark = models.IntegerField()
 
 
 class LabAnswer(models.Model):
@@ -27,3 +29,4 @@ class LabAnswer(models.Model):
     
     execution_tries = models.IntegerField()
     execution_time = models.IntegerField()
+    total_marks = models.IntegerField()

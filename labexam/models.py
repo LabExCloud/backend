@@ -6,16 +6,19 @@ class LabExam(models.Model):
     class_a = models.ForeignKey('classes.Class', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    start_date = models.DateTimeField()
     due_date = models.DateTimeField()
+    total_marks = models.IntegerField()
 
 
 class LabExamQuestion(models.Model):
-    experiment = models.ForeignKey('LabExam', on_delete=models.CASCADE)
+    exam = models.ForeignKey('LabExam', on_delete=models.CASCADE)
     question_number = models.IntegerField()
     question = models.TextField(max_length=500, blank=True)
     language = models.ForeignKey('editor.Language', on_delete=models.PROTECT)
     # implement testcases 
     # answer = models.FileField(upload_to='uploads/lab/questions', )
+    mark = models.IntegerField()
 
 
 class LabExamAnswer(models.Model):
@@ -26,3 +29,4 @@ class LabExamAnswer(models.Model):
     
     execution_tries = models.IntegerField()
     execution_time = models.IntegerField()
+    total_marks = models.IntegerField()
