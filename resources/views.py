@@ -1,9 +1,11 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import ClassResourceSerializer, ResourceSerializer, ResourceDetailSerializer
 from .models import Resource
+from .permissions import HasPermission
 
 from classes.models import Class
 
@@ -32,32 +34,37 @@ class ResourceDetail(APIView):
 
 # TODO: Implement user check
 class ModifyResource(APIView):
-    def get(self, request, id):
-        return Response('get')
+    permission_classes = [IsAuthenticated & HasPermission]
     
     def post(self, request, id):
         try:
             c = Class.objects.get(pk=id)
+            self.check_object_permissions(request, c)
             serializer = ResourceSerializer(data=request.data)
-            serializer.is_valid()
-            r = serializer.save(class_a=c)
-            return Response(ResourceSerializer(r).data)
+            if(serializer.is_valid()):
+                r = serializer.save(class_a=c)
+                return Response(ResourceSerializer(r).data)
+            return Response('invalid data')
         except(Class.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, id):
         try:
             r = Resource.objects.get(pk=id)
+            self.check_object_permissions(request, r.class_a)
             serializer = ResourceSerializer(r, data=request.data)
-            serializer.is_valid()
-            r = serializer.save()
-            return Response(ResourceSerializer(r).data)
+            if(serializer.is_valid()):
+                r = serializer.save()
+                return Response(ResourceSerializer(r).data)
+            return Response('invalid data')
         except(Resource.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request, id):
         try:
-            Resource.objects.get(pk=id).delete()
+            r = Resource.objects.get(pk=id)
+            self.check_object_permissions(request, r.class_a)
+            r.delete()
             return Response('deleted')
         except(Resource.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
