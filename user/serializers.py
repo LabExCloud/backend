@@ -48,7 +48,10 @@ class StudentSerializer(serializers.ModelSerializer):
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ()
+        fields = (
+            'classes',
+        )
+        depth = 3
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -69,9 +72,9 @@ class UserSerializer(serializers.ModelSerializer):
         )
     
     def get_profile(self, user):
-        if ((not user.is_superuser) & (not user.is_staff)):
+        if user.user_type == User.UserType.STUDENT:
             student = Student.objects.get(user=user)
             return StudentSerializer(student, read_only=True).data
-        elif ((not user.is_superuser) & (user.is_staff)):
+        elif user.user_type == User.UserType.TEACHER:
             teacher = Teacher.objects.get(user=user)
             return TeacherSerializer(teacher, read_only=True).data
