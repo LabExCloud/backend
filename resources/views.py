@@ -2,8 +2,9 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser
 
-from .serializers import ClassResourceSerializer, ResourceSerializer, ResourceDetailSerializer
+from .serializers import ClassResourceSerializer, ResourceSerializer, ResourceDetailSerializer, ResourceFileSerializer
 from .models import Resource
 from .permissions import HasPermission
 
@@ -32,7 +33,6 @@ class ResourceDetail(APIView):
         return Response(serializer.data)
 
 
-# TODO: Implement user check
 class ModifyResource(APIView):
     permission_classes = [IsAuthenticated & HasPermission]
     
@@ -66,5 +66,22 @@ class ModifyResource(APIView):
             self.check_object_permissions(request, r.class_a)
             r.delete()
             return Response('deleted')
+        except(Resource.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class ModifyResourceFile(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated & HasPermission]
+
+    def post(self, request, id):
+        try:
+            res = Resource.objects.get(pk=id)
+            self.check_object_permissions(request, res.class_a)
+            serializer = ResourceFileSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(resource=res)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
         except(Resource.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)

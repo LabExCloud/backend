@@ -22,7 +22,4 @@ class ResourceFile(models.Model):
         return os.path.basename(self.file.name)
     
     def __str__(self):
-        return self.filename()
-    
-    def url(self):
-        return 'http://127.0.0.1:8000' + self.file.url
+        return self.resource.class_a.subject.sub_name + ' - ' + self.resource.res_name + self.filename()
