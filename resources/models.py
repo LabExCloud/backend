@@ -22,4 +22,4 @@ class ResourceFile(models.Model):
         return os.path.basename(self.file.name)
     
     def __str__(self):
-        return self.resource.class_a.subject.sub_name + ' - ' + self.resource.res_name + self.filename()
+        return self.resource.class_a.subject.sub_name + ' - ' + self.resource.res_name + ' - ' + self.filename()
