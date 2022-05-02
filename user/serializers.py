@@ -51,7 +51,6 @@ class TeacherSerializer(serializers.ModelSerializer):
         fields = (
             'classes',
         )
-        depth = 3
 
 
 class UserSerializer(serializers.ModelSerializer):
