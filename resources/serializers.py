@@ -64,7 +64,6 @@ class ResourceSerializer(serializers.ModelSerializer):
 
 
 class ClassResourceSerializer(serializers.ModelSerializer):
-    resources = serializers.SerializerMethodField()
     sub_name = serializers.SerializerMethodField()
     sub_code = serializers.SerializerMethodField()
     sem = serializers.SerializerMethodField()
@@ -78,10 +77,7 @@ class ClassResourceSerializer(serializers.ModelSerializer):
             'sem',
             'resources',
         )
-    
-    def get_resources(self, obj):
-        serializer = ResourceSerializer(obj.resources, many=True)
-        return serializer.data
+        depth = 1
     
     def get_sub_name(self, obj):
         return obj.subject.sub_name
