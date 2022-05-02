@@ -38,7 +38,7 @@ class ResourceDetailSerializer(serializers.ModelSerializer):
         )
     
     def get_res_files(self, obj):
-        serializer = ResourceFileSerializer(ResourceFile.objects.filter(resource=obj), many=True)
+        serializer = ResourceFileSerializer(obj.res_files.all(), many=True)
         return serializer.data
 
 
@@ -80,7 +80,7 @@ class ClassResourceSerializer(serializers.ModelSerializer):
         )
     
     def get_resources(self, obj):
-        serializer = ResourceSerializer(Resource.objects.filter(class_a=obj), many=True)
+        serializer = ResourceSerializer(obj.resources, many=True)
         return serializer.data
     
     def get_sub_name(self, obj):

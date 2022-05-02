@@ -4,7 +4,7 @@ import os
 
 
 class Resource(models.Model):
-    class_a = models.ForeignKey('classes.Class', on_delete=models.CASCADE)
+    class_a = models.ForeignKey('classes.Class', related_name='resources', on_delete=models.CASCADE)
     res_name = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -15,7 +15,7 @@ class Resource(models.Model):
 
 
 class ResourceFile(models.Model):
-    resource = models.ForeignKey('Resource', on_delete=models.CASCADE)
+    resource = models.ForeignKey('Resource', related_name='res_files', on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploads/resources/', )
 
     def filename(self):
