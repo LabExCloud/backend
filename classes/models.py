@@ -8,6 +8,7 @@ class Class(models.Model):
     batch = models.ForeignKey('base.Batch', on_delete=models.CASCADE)
     owner = models.ForeignKey('user.Teacher', on_delete=models.SET_NULL, null=True)
     teachers = models.ManyToManyField('user.Teacher', related_name='classes')
+    is_lab = models.BooleanField(default=False)
 
     models.UniqueConstraint(fields=['department', 'semester', 'subject', 'batch'], name='unique_class')
 

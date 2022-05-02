@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'user',
     'base',
     'resources',
+    'labs',
     'classes',
     'editor',
 ]
