@@ -59,6 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            'id',
             'username',
             'first_name',
             'middle_name',
@@ -77,3 +78,16 @@ class UserSerializer(serializers.ModelSerializer):
         elif user.user_type == User.UserType.TEACHER:
             teacher = Teacher.objects.get(user=user)
             return TeacherSerializer(teacher, read_only=True).data
+
+
+class LightUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+        )

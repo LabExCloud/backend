@@ -6,8 +6,8 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 from .serializers import ClassResourceSerializer, ResourceSerializer, ResourceDetailSerializer, ResourceFileSerializer
 from .models import Resource
-from .permissions import HasPermission
 
+from classes.permissions import HasPermission
 from classes.models import Class
 
 
