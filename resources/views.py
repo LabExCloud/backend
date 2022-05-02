@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 from .serializers import ClassResourceSerializer, ResourceSerializer, ResourceDetailSerializer, ResourceFileSerializer
-from .models import Resource
+from .models import Resource, ResourceFile
 
 from classes.permissions import HasPermission
 from classes.models import Class
