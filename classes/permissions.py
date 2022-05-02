@@ -4,7 +4,7 @@ from user.models import User, Teacher
 
 class HasPermission(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user.user_type == User.UserType.TEACHER
+        return (request.user.user_type == User.UserType.TEACHER) | (request.method in permissions.SAFE_METHODS)
     
     def has_object_permission(self, request, view, obj):
         teacher = Teacher.objects.get(user=request.user)

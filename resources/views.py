@@ -27,14 +27,12 @@ class ResourceListSem(APIView):
 
 
 class ResourceDetail(APIView):
-    def get(self, request, r_id, format=None):
-        resource = Resource.objects.get(pk=r_id)
+    permission_classes = [IsAuthenticated & HasPermission]
+
+    def get(self, request, id, format=None):
+        resource = Resource.objects.get(pk=id)
         serializer = ResourceDetailSerializer(resource)
         return Response(serializer.data)
-
-
-class ModifyResource(APIView):
-    permission_classes = [IsAuthenticated & HasPermission]
     
     def post(self, request, id):
         try:

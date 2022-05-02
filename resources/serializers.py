@@ -51,7 +51,9 @@ class ResourceSerializer(serializers.ModelSerializer):
             'description',
             'created',
             'modified',
+            'res_files',
         )
+        depth = 1
     
     def create(self, data):
         return Resource.objects.create(**data)
