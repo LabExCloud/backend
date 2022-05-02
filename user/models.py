@@ -3,6 +3,7 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
+from django_resized import ResizedImageField
 
 
 class User(AbstractUser):
@@ -13,7 +14,7 @@ class User(AbstractUser):
     
     user_type = models.CharField(max_length=8, choices=UserType.choices)
     middle_name = models.CharField(max_length=20, blank=True, null=True)
-    image = models.ImageField(upload_to='uploads/profile/', blank=True, null=True)
+    image = ResizedImageField(size=[400, 400], upload_to='uploads/profile/', blank=True, null=True)
     phone = models.CharField(max_length=13, blank=True, null=True)
     
     def get_image(self):
