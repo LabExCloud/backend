@@ -17,11 +17,11 @@ class ResourceFileSerializer(serializers.ModelSerializer):
     def create(self, data):
         return ResourceFile.objects.create(**data)
     
-    # def update(self, instance, data):
-    #     instance.res_name = data.get('res_name', instance.res_name)
-    #     instance.description = data.get('description', instance.description)
-    #     instance.save()
-    #     return instance
+    def update(self, instance, data):
+        instance.resource = data.get('resource', instance.resource)
+        instance.file = data.get('file', instance.file)
+        instance.save()
+        return instance
 
 class ResourceDetailSerializer(serializers.ModelSerializer):
     res_files = serializers.SerializerMethodField()

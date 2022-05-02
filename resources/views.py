@@ -85,3 +85,24 @@ class ModifyResourceFile(APIView):
             return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
         except(Resource.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, id):
+        try:
+            res_file = ResourceFile.objects.get(pk=id)
+            self.check_object_permissions(request, res_file.resource.class_a)
+            serializer = ResourceFileSerializer(res_file, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+        except(ResourceFile.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id):
+        try:
+            res_file = ResourceFile.objects.get(pk=id)
+            self.check_object_permissions(request, res_file.resource.class_a)
+            res_file.delete()
+            return Response('deleted', status=status.HTTP_200_OK)
+        except(ResourceFile.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
