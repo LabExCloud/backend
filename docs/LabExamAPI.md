@@ -1,7 +1,7 @@
 ## Lab Exam
 
 &cross; Get all exams in lab c_id  
-`GET    /api/v1/labexams/exam/<int:c_id>`
+`GET    /api/v1/labexams/<int:c_id>`
 
 &cross; Get detail of lab exam e_id  
 `GET    /api/v1/labexams/exam/<int:e_id>`

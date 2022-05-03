@@ -1,7 +1,7 @@
 ## Labs
 
 - Get all experiment in lab c_id  
-`GET    /api/v1/labs/exps/<int:c_id>`
+`GET    /api/v1/labs/<int:id>`
 
 - Get detail of experiment e_id  
 `GET    /api/v1/labs/exp/<int:e_id>`
