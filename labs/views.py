@@ -47,6 +47,41 @@ class LabExperimentDetail(APIView):
         exp = LabExperiment.objects.get(pk=id)
         serializer = LabExperimentSerializer(exp)
         return Response(serializer.data)
+    
+    def post(self, request, id, format=None):
+        try:
+            c = Class.objects.get(pk=id)
+            self.check_object_permissions(request, c)
+            serializer = LabExperimentSerializer(data=request.data)
+            print(request.data)
+            if(serializer.is_valid(raise_exception=True)):
+                e = serializer.save(class_a=c)
+                return Response(LabExperimentSerializer(e).data)
+            print(serializer.data)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+        except(Class.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, id, format=None):
+        try:
+            e = LabExperiment.objects.get(pk=id)
+            self.check_object_permissions(request, e.class_a)
+            serializer = LabExperimentSerializer(e, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+        except(LabExperiment.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id, format=None):
+        try:
+            e = LabExperiment.objects.get(pk=id)
+            self.check_object_permissions(request, e.class_a)
+            e.delete()
+            return Response('deleted', status=status.HTTP_200_OK)
+        except(LabExperiment.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class LabQuestionDetail(APIView):
@@ -56,4 +91,38 @@ class LabQuestionDetail(APIView):
         q = LabQuestion.objects.get(pk=id)
         serializer = LabQuestionSerializer(q)
         return Response(serializer.data)
-
+    
+    def post(self, request, id, format=None):
+        try:
+            e = LabExperiment.objects.get(pk=id)
+            self.check_object_permissions(request, e.class_a)
+            serializer = LabQuestionSerializer(data=request.data)
+            print(request.data)
+            if(serializer.is_valid()):
+                q = serializer.save(experiment=e)
+                return Response(LabQuestionSerializer(q).data)
+            print(serializer.data)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+        except(LabExperiment.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, id):
+        try:
+            q = LabQuestion.objects.get(pk=id)
+            self.check_object_permissions(request, q.experiment.class_a)
+            serializer = LabQuestionSerializer(q, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+        except(LabQuestion.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id):
+        try:
+            q = LabQuestion.objects.get(pk=id)
+            self.check_object_permissions(request, q.experiment.class_a)
+            q.delete()
+            return Response('deleted', status=status.HTTP_200_OK)
+        except(LabQuestion.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)

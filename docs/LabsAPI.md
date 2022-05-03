@@ -27,22 +27,22 @@
 
 
 ### Teacher
-&cross; create an experiment in the class class_id  
+- create an experiment in the class class_id  
 `POST   /api/v1/labs/exp/<int:class_id>`
 
-&cross; update an experiment e_id  
+- update an experiment e_id  
 `PUT    /api/v1/labs/exp/<int:e_id>`
 
-&cross; delete an experiment e_d  
+- delete an experiment e_d  
 `DELETE  /api/v1/labs/exp/<int:e_id>`
 
-&cross; create a question for experiment e_id  
+- create a question for experiment e_id  
 `POST    /api/v1/labs/question/<int:e_id>`  
 
-&cross; edit a question q_id  
+- edit a question q_id  
 `PUT     /api/v1/labs/question/<int:q_id>`  
 
-&cross; delete a question q_id  
+- delete a question q_id  
 `DELETE  /api/v1/labs/question/<int:q_id>`  
 
 &cross; add a testcase for question q_id  
