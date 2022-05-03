@@ -25,7 +25,7 @@
 - Get user profile
     request header:
     ```http
-    Authorization: "Token 028bfe331cdda48ebc694a28e60a3fd9b6913bbf"
+    Authorization: "Token <token>"
     ```
 
     response data:
