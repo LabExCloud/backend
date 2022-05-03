@@ -6,6 +6,9 @@
 - Get detail of experiment e_id  
 `GET    /api/v1/labs/exp/<int:e_id>`
 
+&cross; Get detail of question q_id  
+`GET    /api/v1/labs/question/<int:q_id>`
+
 ### Student
 - List all labs in current semester  
 `GET    /api/v1/labs`
