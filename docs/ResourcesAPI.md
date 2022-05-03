@@ -1,16 +1,13 @@
-# API Documentation
-
-
 ## Resources
 
 - Get detailed data of resource r_id  
 `GET    /api/v1/resources/res/<int:r_id>`
 
 ### Student
-- List all resources (Student only)  
+- List all resources in current semester  
 `GET    /api/v1/resources`
 
-- List all resources in a semester sem (Student only)  
+- List all resources in a semester sem  
 `GET    /api/v1/resources/sem/<int:sem>`
 
 ### Teacher
@@ -75,6 +72,5 @@
 
 
 
-Future API:  
-- list of resources in a class class_id  
+&cross; list of resources in a class class_id  
 `GET    /api/v1/resources/class/<int:class_id>`  
