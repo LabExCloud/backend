@@ -27,6 +27,7 @@ class LabQuestion(models.Model):
 
 class LabTestCase(models.Model):
     question = models.ForeignKey('LabQuestion', related_name='testcases', on_delete=models.CASCADE)
+    hidden = models.BooleanField(default=False)
     input_file = models.FileField(upload_to='uploads/lab/testcase/input')
     output_file = models.FileField(upload_to='uploads/lab/testcase/output')
 
