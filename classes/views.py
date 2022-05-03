@@ -26,3 +26,15 @@ class ClassList(APIView):
             return Response(serializer.data)
         except(Class.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class ClassDetail(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, id):
+        try:
+            c = Class.objects.get(pk=id)
+            serializer = ClassSerializer(c)
+            return Response(serializer.data)
+        except(Class.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
