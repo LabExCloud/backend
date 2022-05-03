@@ -6,7 +6,7 @@
 - Get detail of experiment e_id  
 `GET    /api/v1/labs/exp/<int:e_id>`
 
-&cross; Get detail of question q_id  
+- Get detail of question q_id  
 `GET    /api/v1/labs/question/<int:q_id>`
 
 ### Student

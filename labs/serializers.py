@@ -16,26 +16,31 @@ class LabExperimentSerializer(serializers.ModelSerializer):
             'modified',
             'due_date',
             'total_marks',
+            'questions',
         )
 
 
-class ClassLabSerializer(serializers.ModelSerializer):
-    sub_name = serializers.SerializerMethodField()
-    sem = serializers.SerializerMethodField()
-
+class LabQuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Class
+        model = LabQuestion
         fields = (
             'id',
-            'sub_name',
-            'sem',
-            'owner',
-            'teachers',
+            'experiment',
+            'question_number',
+            'question',
+            'language',
+            'testcases',
+            # 'answer',
+            'mark',
         )
-        depth = 1
-    
-    def get_sub_name(self, obj):
-        return obj.subject.sub_name
-    
-    def get_sem(self, obj):
-        return obj.semester.sem
+
+
+class LabTestCaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LabTestCase
+        fields = (
+            'id',
+            'question',
+            'input_file',
+            'output_file',
+        )
