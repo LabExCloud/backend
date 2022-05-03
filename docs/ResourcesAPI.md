@@ -1,5 +1,10 @@
 ## Resources
 
+use request header:  
+```http
+Authorization: "Token <token>"
+```
+
 - Get detailed data of resource r_id  
 `GET    /api/v1/resources/res/<int:r_id>`
 

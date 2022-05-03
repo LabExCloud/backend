@@ -1,5 +1,10 @@
 ## Labs
 
+use request header:  
+```http
+Authorization: "Token <token>"
+```
+
 - Get all experiment in lab c_id  
 `GET    /api/v1/labs/<int:id>`
 

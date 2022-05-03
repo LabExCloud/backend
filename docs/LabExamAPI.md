@@ -1,5 +1,10 @@
 ## Lab Exam
 
+use request header:  
+```http
+Authorization: "Token <token>"
+```
+
 &cross; Get all exams in lab c_id  
 `GET    /api/v1/labexams/<int:c_id>`
 
