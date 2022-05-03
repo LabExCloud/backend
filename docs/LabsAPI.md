@@ -1,13 +1,16 @@
 ## Labs
 
+- Get all experiment in lab c_id  
+`GET    /api/v1/labs/exps/<int:c_id>`
+
 - Get detail of experiment e_id  
 `GET    /api/v1/labs/exp/<int:e_id>`
 
 ### Student
-- List all experiments in current semester  
+- List all labs in current semester  
 `GET    /api/v1/labs`
 
-- List all experiments in a semester sem  
+- List all labs in a semester sem  
 `GET    /api/v1/labs/sem/<int:sem>`
 
 &cross; Add answer for the question q_id  
