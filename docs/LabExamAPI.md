@@ -1,14 +1,20 @@
 ## Lab Exam
 
+&cross; Get all exams in lab c_id  
+`GET    /api/v1/labexams/exam/<int:c_id>`
+
 &cross; Get detail of lab exam e_id  
 `GET    /api/v1/labexams/exam/<int:e_id>`
 
+&cross; Get detail of question q_id  
+`GET    /api/v1/labexams/question/<int:q_id>`
+
 ### Student
 &cross; List all lab exams in current semester  
-`GET    /api/v1/labexams`
+`GET    /api/v1/labs`
 
 &cross; List all lab exams in a semester sem  
-`GET    /api/v1/labexams/sem/<int:sem>`
+`GET    /api/v1/labs/sem/<int:sem>`
 
 &cross; Add answer for the question q_id  
 `POST   /api/v1/labexams/answer/<int:q_id>`
