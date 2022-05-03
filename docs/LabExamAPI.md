@@ -10,10 +10,10 @@
 `GET    /api/v1/labexams/question/<int:q_id>`
 
 ### Student
-&cross; List all lab exams in current semester  
+- List all lab exams in current semester  
 `GET    /api/v1/labs`
 
-&cross; List all lab exams in a semester sem  
+- List all lab exams in a semester sem  
 `GET    /api/v1/labs/sem/<int:sem>`
 
 &cross; Add answer for the question q_id  
