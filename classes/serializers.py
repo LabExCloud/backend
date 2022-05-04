@@ -5,6 +5,8 @@ from user.serializers import LightUserSerializer
 
 from .models import Class
 
+from base.models import Subject, Department, Semester, Batch
+
 
 class ClassSerializer(serializers.ModelSerializer):
     teachers = serializers.SerializerMethodField()
@@ -20,16 +22,15 @@ class ClassSerializer(serializers.ModelSerializer):
             'batch',
             'owner',
             'teachers',
+            'is_lab',
         )
-        depth = 2
+        depth = 1
     
     def get_owner(self, obj):
         serializer = LightUserSerializer(obj.owner.user)
         return serializer.data
     
     def get_teachers(self, obj):
-        teachers = []
-        for i in obj.teachers.all():
-            teachers.append(User.objects.get(pk=i.user.id))
+        teachers = [i.user for i in obj.teachers.all()]
         serializer = LightUserSerializer(teachers, many=True)
         return serializer.data

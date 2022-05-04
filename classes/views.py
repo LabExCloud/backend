@@ -7,11 +7,14 @@ from user.models import User
 
 from .serializers import ClassSerializer
 from .models import Class
-# from .permissions import HasPermission
+from .permissions import HasPermission
+
+
+from base.models import Subject, Department, Semester, Batch
 
 
 class ClassList(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated & HasPermission]
 
     def get(self, request):
         try:
@@ -29,7 +32,7 @@ class ClassList(APIView):
 
 
 class ClassDetail(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated & HasPermission]
 
     def get(self, request, id):
         try:
