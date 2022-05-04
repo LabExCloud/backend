@@ -29,7 +29,11 @@ class Batch(models.Model):
     
     year = models.IntegerField()
     stream = models.CharField(max_length=8, choices=Stream.choices, default=Stream.BTECH)
-    models.UniqueConstraint(fields=['year', 'stream'], name='unique_batch')
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['year', 'stream'], name='unique_batch')
+        ]
 
     def __str__(self):
         return str(self.year) + ' - ' + self.stream

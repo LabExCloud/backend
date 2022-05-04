@@ -10,7 +10,10 @@ class Class(models.Model):
     teachers = models.ManyToManyField('user.Teacher', related_name='classes')
     is_lab = models.BooleanField(default=False)
 
-    models.UniqueConstraint(fields=['department', 'semester', 'subject', 'batch'], name='unique_class')
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['department', 'semester', 'subject', 'batch'], name='unique_class')
+        ]
 
     def __str__(self):
         return str(self.batch.year) + ' - ' + self.department.dept_code + ' - S' + str(self.semester.sem) + ' - ' + self.subject.sub_name
