@@ -21,15 +21,13 @@ class LabQuestion(models.Model):
     answer = models.FileField(upload_to='uploads/lab/correctanswer', blank=True, null=True)
     mark = models.IntegerField()
 
-    def __str__(self):
-        return self.experiment.class_a.subject.sub_name + ' - ' + self.experiment.exp_name + ' - ' + str(self.question_number)
-
 
 class LabTestCase(models.Model):
     question = models.ForeignKey('LabQuestion', related_name='testcases', on_delete=models.CASCADE)
     hidden = models.BooleanField(default=False)
     input_file = models.FileField(upload_to='uploads/lab/testcase/input')
     output_file = models.FileField(upload_to='uploads/lab/testcase/output')
+    mark = models.IntegerField()
 
 
 class LabAnswer(models.Model):

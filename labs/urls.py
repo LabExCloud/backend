@@ -8,5 +8,6 @@ urlpatterns = [
     path('labs/<int:id>', views.LabExperimentsList.as_view()), 
     path('labs/exp/<int:id>', views.LabExperimentDetail.as_view()),
     path('labs/question/<int:id>', views.LabQuestionDetail.as_view()),
-    # path('labs/testcase/<int:id>', views.LabTestCaseDetail.as_view()),
+    path('labs/question', views.LabQuestionDetail.as_view()),
+    path('labs/testcase/<int:id>', views.LabTestCaseDetail.as_view()),
 ]

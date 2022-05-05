@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
-from .serializers import LabExperimentSerializer, LabQuestionSerializer
-from .models import LabExperiment, LabQuestion, LabAnswer
+from .serializers import LabExperimentSerializer, LabQuestionSerializer, LabTestCaseSerializer
+from .models import LabExperiment, LabQuestion, LabAnswer, LabTestCase
 
 from classes.serializers import ClassSerializer
 from classes.permissions import HasPermission
@@ -67,7 +67,7 @@ class LabExperimentDetail(APIView):
             e = LabExperiment.objects.get(pk=id)
             self.check_object_permissions(request, e.class_a)
             serializer = LabExperimentSerializer(e, data=request.data)
-            if serializer.is_valid():
+            if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
@@ -87,22 +87,24 @@ class LabExperimentDetail(APIView):
 class LabQuestionDetail(APIView):
     permission_classes = [IsAuthenticated & HasPermission]
 
-    def get(self, request, id, format=None):
-        q = LabQuestion.objects.get(pk=id)
-        serializer = LabQuestionSerializer(q)
-        return Response(serializer.data)
+    def get(self, request, id):
+        try:
+            q = LabQuestion.objects.get(pk=id)
+            serializer = LabQuestionSerializer(q)
+            return Response(serializer.data)
+        except(LabQuestion.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
     
-    def post(self, request, id, format=None):
+    def post(self, request, id):
         try:
             e = LabExperiment.objects.get(pk=id)
             self.check_object_permissions(request, e.class_a)
             serializer = LabQuestionSerializer(data=request.data)
-            print(request.data)
-            if(serializer.is_valid()):
-                q = serializer.save(experiment=e)
-                return Response(LabQuestionSerializer(q).data)
-            print(serializer.data)
-            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(experiment=e)
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         except(LabExperiment.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -111,10 +113,11 @@ class LabQuestionDetail(APIView):
             q = LabQuestion.objects.get(pk=id)
             self.check_object_permissions(request, q.experiment.class_a)
             serializer = LabQuestionSerializer(q, data=request.data)
-            if serializer.is_valid():
+            if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         except(LabQuestion.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -123,6 +126,44 @@ class LabQuestionDetail(APIView):
             q = LabQuestion.objects.get(pk=id)
             self.check_object_permissions(request, q.experiment.class_a)
             q.delete()
-            return Response('deleted', status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
         except(LabQuestion.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class LabTestCaseDetail(APIView):
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+    permission_classes = [IsAuthenticated & HasPermission]
+
+    def post(self, request, id):
+        try:
+            q = LabQuestion.objects.get(pk=id)
+            self.check_object_permissions(request, q.experiment.class_a)
+            serializer = LabTestCaseSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(question=q)
+                return Response(serializer.data)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+        except(LabQuestion.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, id):
+        try:
+            t = LabTestCase.objects.get(pk=id)
+            self.check_object_permissions(request, t.question.experiment.class_a)
+            serializer = LabTestCaseSerializer(t, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
+        except(LabTestCase.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id):
+        try:
+            t = LabTestCase.objects.get(pk=id)
+            self.check_object_permissions(request, t.question.experiment.class_a)
+            t.delete()
+            return Response('deleted')
+        except(LabTestCase.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
