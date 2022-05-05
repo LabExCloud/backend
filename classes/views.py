@@ -11,9 +11,6 @@ from .models import Class
 from .permissions import HasPermission, HasOwnerPermission
 
 
-from base.models import Subject, Department, Semester, Batch
-
-
 class ClassList(APIView):
     permission_classes = [IsAuthenticated & HasPermission]
 
@@ -45,10 +42,10 @@ class ClassDetail(APIView):
     
     def post(self, request):
         try:
-            serializer = ClassSerializer(data=request.data, context={'request': request})
+            serializer = ClassSerializer(data=request.data, context={'user': request.user})
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response(serializer.data)
             else:
                 return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
         except(IntegrityError):
@@ -58,10 +55,10 @@ class ClassDetail(APIView):
         try:
             c = Class.objects.get(pk=id)
             self.check_object_permissions(request, c)
-            serializer = ClassSerializer(c, data=request.data, context={'request': request})
+            serializer = ClassSerializer(c, data=request.data, context={'user': request.user})
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response(serializer.data)
             else:
                 return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
         except(IntegrityError):
@@ -72,6 +69,6 @@ class ClassDetail(APIView):
             c = Class.objects.get(pk=id)
             self.check_object_permissions(request, c)
             c.delete()
-            return Response('deleted', status=status.HTTP_200_OK)
+            return Response('deleted')
         except(IntegrityError):
             return Response('class not unique', status=status.HTTP_400_BAD_REQUEST)
