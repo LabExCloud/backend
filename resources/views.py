@@ -26,6 +26,16 @@ class ResourceListSem(APIView):
         return Response(serializer.data)
 
 
+class ResourceListClass(APIView):
+    def get(self, request, id, format=None):
+        try:
+            cl = Class.objects.get(pk=id)
+            serializer = ClassResourceSerializer(cl)
+            return Response(serializer.data)
+        except(Class.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 class ResourceDetail(APIView):
     permission_classes = [IsAuthenticated & HasPermission]
 

@@ -27,6 +27,21 @@ Authorization: "Token <token>"
     }
     ```
 
+- list of resources in a class class_id  
+`GET    /api/v1/resources/class/<int:class_id>`  
+
+    response:
+    ```js
+    {
+        "id": Number,
+        "res_name": String,
+        "description": String,
+        "created": String,  // eg:- "2022-04-24T09:36:26.423130Z"
+        "modified": String, // eg:- "2022-04-24T09:36:26.423130Z"
+        "class_a": Number
+    }
+    ```
+
 ### Student
 - List all resources in current semester  
 `GET    /api/v1/resources`
@@ -59,6 +74,7 @@ Authorization: "Token <token>"
 `GET    /api/v1/resources/sem/<int:sem>`
 
     response: same as above
+
 
 ### Teacher
 - create a resource in the class class_id  
@@ -161,7 +177,3 @@ Authorization: "Token <token>"
 
 - delete a resource file  
 `DELETE  /api/v1/resources/file/<int:rf_id>`  
-
-
-&cross; list of resources in a class class_id  
-`GET    /api/v1/resources/class/<int:class_id>`  
