@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
 from user.models import Teacher
+from user.serializers import LightUserSerializer
 
 from .models import Class
 
 from base.models import Subject, Department, Semester, Batch
+from base.serializers import SubjectSerializer, DepartmentSerializer, SemesterSerializer, BatchSerializer
 
 
 class ClassSerializer(serializers.ModelSerializer):
@@ -31,6 +33,17 @@ class ClassSerializer(serializers.ModelSerializer):
 
         return super().to_internal_value(data)
         
+    def to_representation(self, value):
+        return {
+            'id': value.id,
+            'department': DepartmentSerializer(value.department).data,
+            'semester': SemesterSerializer(value.semester).data,
+            'subject': SubjectSerializer(value.subject).data,
+            'batch': BatchSerializer(value.batch).data,
+            'owner': LightUserSerializer(value.owner.user).data,
+            'teachers': LightUserSerializer([i.user for i in value.teachers.all()], many=True).data,
+            'is_lab': value.is_lab
+        }
     
     def create(self, data):
         teachers = data['teachers']
