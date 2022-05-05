@@ -16,10 +16,14 @@ class LabExperiment(models.Model):
 class LabQuestion(models.Model):
     experiment = models.ForeignKey('LabExperiment', related_name='questions', on_delete=models.CASCADE)
     question_number = models.IntegerField()
+    title = models.CharField(max_length=50)
     question = models.TextField(max_length=500, blank=True)
     language = models.ForeignKey('editor.Language', on_delete=models.PROTECT)
     answer = models.FileField(upload_to='uploads/lab/correctanswer', blank=True, null=True)
     mark = models.IntegerField()
+
+    def __str__(self):
+        return self.experiment.exp_name + ' - ' + self.title
 
 
 class LabTestCase(models.Model):
