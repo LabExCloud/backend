@@ -53,3 +53,4 @@
         },
         "user_type": String    // 'student', 'teacher', 'admin'
     }
+    ```
