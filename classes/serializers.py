@@ -10,6 +10,7 @@ from base.serializers import SubjectSerializer, DepartmentSerializer, SemesterSe
 
 
 class ClassSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     department = Department()
     semester = Semester()
     subject = Subject()
@@ -22,6 +23,7 @@ class ClassSerializer(serializers.Serializer):
         teachers = [i.user for i in instance.teachers.all()]
 
         return {
+            'id': instance.id,
             'department': DepartmentSerializer(instance.department).data,
             'semester': SemesterSerializer(instance.semester).data,
             'subject': SubjectSerializer(instance.subject).data,
@@ -53,6 +55,7 @@ class ClassSerializer(serializers.Serializer):
             raise serializers.ValidationError({'batch': 'does not exist'})
         
         return {
+            'id': data.get('id'),
             'department': dept,
             'semester': sem,
             'subject': sub,
