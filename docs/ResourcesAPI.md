@@ -43,7 +43,7 @@ Authorization: "Token <token>"
     ```
 
 ### Student
-- List all resources in current semester  
+- List all resources for current
 `GET    /api/v1/resources`
 
     response:
@@ -69,6 +69,11 @@ Authorization: "Token <token>"
         ...
     ]
     ```
+
+- List all resources in current semester  
+`GET    /api/v1/resources/sem`
+
+    response: same as above
 
 - List all resources in a semester sem  
 `GET    /api/v1/resources/sem/<int:sem>`

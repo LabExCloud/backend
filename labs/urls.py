@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('labs', views.LabsList.as_view()),
+    path('labs/sem', views.LabsSemList.as_view()),
     path('labs/sem/<int:sem>', views.LabsSemList.as_view()),
     path('labs/<int:id>', views.LabExperimentsList.as_view()), 
     path('labs/exp/<int:id>', views.LabExperimentDetail.as_view()),

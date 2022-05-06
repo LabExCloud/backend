@@ -16,8 +16,7 @@ class LabsList(APIView):
     permission_classes = [IsAuthenticated & HasPermission]
 
     def get(self, request):
-        sem = request.user.student.semester
-        classes = request.user.student.classes.filter(semester=sem, is_lab=True)
+        classes = request.user.student.classes.filter(is_lab=True)
         serializer = ClassSerializer(classes, many=True)
         return Response(serializer.data)
 
@@ -25,7 +24,8 @@ class LabsList(APIView):
 class LabsSemList(APIView):
     permission_classes = [IsAuthenticated & HasPermission]
 
-    def get(self, request, sem, format=None):
+    def get(self, request, format=None, **kwargs):
+        sem = kwargs.get('sem', request.user.student.semester.sem)
         classes = request.user.student.classes.filter(semester=sem, is_lab=True)
         serializer = ClassSerializer(classes, many=True)
         return Response(serializer.data)
