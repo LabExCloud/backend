@@ -44,3 +44,8 @@ class LabAnswer(models.Model):
     execution_tries = models.IntegerField()
     execution_time = models.IntegerField()
     total_marks = models.IntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['question', 'student'], name='unique_answer')
+        ]

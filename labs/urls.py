@@ -11,4 +11,5 @@ urlpatterns = [
     path('labs/question/<int:id>', views.LabQuestionDetail.as_view()),
     path('labs/question', views.LabQuestionDetail.as_view()),
     path('labs/testcase/<int:id>', views.LabTestCaseDetail.as_view()),
+    path('labs/answer/<int:id>', views.LabAnswerDetail.as_view()),
 ]

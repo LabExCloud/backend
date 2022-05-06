@@ -1,11 +1,13 @@
+from django.db.utils import IntegrityError
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
-from .serializers import LabExperimentSerializer, LabQuestionSerializer, LabTestCaseSerializer
+from .serializers import LabExperimentSerializer, LabQuestionSerializer, LabTestCaseSerializer, LabAnswerSerializer
 from .models import LabExperiment, LabQuestion, LabAnswer, LabTestCase
+from .permissions import HasAnswerPermission
 
 from classes.serializers import ClassSerializer
 from classes.permissions import HasPermission
@@ -167,3 +169,49 @@ class LabTestCaseDetail(APIView):
             return Response('deleted')
         except(LabTestCase.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class LabAnswerDetail(APIView):
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+    permission_classes = [IsAuthenticated & HasAnswerPermission]
+
+    def post(self, request, id):
+        try:
+            q = LabQuestion.objects.get(pk=id)
+            self.check_object_permissions(request, q.experiment.class_a)
+            request.data['student'] = request.user.student.id
+            request.data['question'] = id
+            serializer = LabAnswerSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        except(LabQuestion.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except(IntegrityError):
+            return Response(
+                'answer for this question by this student already exist',
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    
+    def put(self, request, id):
+        try:
+            a = LabAnswer.objects.get(pk=id)
+            self.check_object_permissions(request, a.question.experiment.class_a)
+            request.data['student'] = request.user.student.id
+            request.data['question'] = a.question.id
+            serializer = LabAnswerSerializer(a, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        except(LabAnswer.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id):
+        try:
+            a = LabAnswer.objects.get(pk=id)
+            self.check_object_permissions(request, a.question.experiment.class_a)
+            a.delete()
+            return Response('deleted')
+        except(LabAnswer.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    

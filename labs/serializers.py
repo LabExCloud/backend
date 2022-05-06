@@ -30,3 +30,9 @@ class LabExperimentSerializer(serializers.ModelSerializer):
         exclude = (
             'class_a',
         )
+
+
+class LabAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LabAnswer
+        fields = '__all__'

@@ -90,13 +90,41 @@ Authorization: "Token <token>"
 
     response: same as above
 
-&cross; Add answer for the question q_id  
+- Add answer for the question q_id  
 `POST   /api/v1/labs/answer/<int:q_id>`
 
-&cross; Edit answer a_id  
+    request:
+    ```js
+    {
+        execution_tries: Number,
+        execution_time: Number,
+        total_marks: Number,
+        answer: File
+    }
+    ```
+
+    response:
+    ```js
+    {
+        "id": Number,
+        "answer": String,
+        "submitted": String,
+        "modified": String,
+        "execution_tries": Number,
+        "execution_time": Number,
+        "total_marks": Number,
+        "question": Number,
+        "student": Number
+    }
+    ```
+
+- Edit answer a_id  
 `PUT    /api/v1/labs/answer/<int:qa_id>`
 
-&cross; Delete answer a_id  
+    request & response:  
+    same as above
+
+- Delete answer a_id  
 `DELETE /api/v1/labs/answer/<int:qa_id>`
 
 
