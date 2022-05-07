@@ -137,6 +137,14 @@ class LabTestCaseDetail(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     permission_classes = [IsAuthenticated & HasPermission]
 
+    def get(self, request, id):
+        try:
+            t = LabTestCase.objects.get(pk=id)
+            serializer = LabTestCaseSerializer(t)
+            return Response(serializer.data)
+        except(LabTestCase.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
     def post(self, request, id):
         try:
             q = LabQuestion.objects.get(pk=id)

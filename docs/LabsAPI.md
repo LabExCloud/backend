@@ -56,6 +56,22 @@ Authorization: "Token <token>"
     }
     ```
 
+- Get testcase tc_id  
+`GET    /api/v1/labs/testcase/<int:tc_id>`
+
+    response:
+    ```js
+    {
+        "id": Number,
+        "tc_number": Number,
+        "hidden": Boolean,
+        "input_file": String,
+        "output_file": "String,
+        "mark": Number
+    }
+    ```
+
+
 ### Student
 - List all labs for current student
 `GET    /api/v1/labs`

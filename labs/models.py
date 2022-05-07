@@ -15,7 +15,7 @@ class LabExperiment(models.Model):
 
 class LabQuestion(models.Model):
     experiment = models.ForeignKey('LabExperiment', related_name='questions', on_delete=models.CASCADE)
-    question_number = models.IntegerField()
+    question_number = models.PositiveIntegerField()
     title = models.CharField(max_length=50)
     question = models.TextField(max_length=500, blank=True)
     language = models.ForeignKey('editor.Language', on_delete=models.PROTECT)
@@ -28,6 +28,7 @@ class LabQuestion(models.Model):
 
 class LabTestCase(models.Model):
     question = models.ForeignKey('LabQuestion', related_name='testcases', on_delete=models.CASCADE)
+    tc_number = models.PositiveIntegerField()
     hidden = models.BooleanField(default=False)
     input_file = models.FileField(upload_to='uploads/lab/testcase/input')
     output_file = models.FileField(upload_to='uploads/lab/testcase/output')
