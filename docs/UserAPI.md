@@ -53,7 +53,11 @@
                 ],
                 "rollno": Number,
                 "year": Number,
-                "stream": String
+                "stream": String,
+                "classes": [
+                    Number,
+                    ...
+                ]
             },
             "user_type": String    // 'student', 'teacher', 'admin'
         }
@@ -74,7 +78,11 @@
             "profile": {
                 "id": Number,
                 "dept_name": String,
-                "dept_code": String
+                "dept_code": String,
+                "classes": [
+                    Number,
+                    ...
+                ]
             },
             "user_type": String    // 'student', 'teacher', 'admin'
         }

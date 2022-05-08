@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from classes.models import Class
+
 from .models import Student, Teacher, User
     
 
@@ -41,6 +43,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class TeacherSerializer(serializers.ModelSerializer):
     dept_name = serializers.SerializerMethodField()
     dept_code = serializers.SerializerMethodField()
+    classes = serializers.PrimaryKeyRelatedField(queryset=Class.objects.all(), many=True)
 
     class Meta:
         model = Teacher
