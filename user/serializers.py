@@ -13,14 +13,9 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields = (
-            'dept_name',
-            'dept_code',
-            'semester',
-            'semesters',
-            'rollno',
-            'year',
-            'stream'
+        exclude = (
+            'department',
+            'user'
         )
     
     def get_semester(self, obj):
@@ -44,11 +39,21 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
+    dept_name = serializers.SerializerMethodField()
+    dept_code = serializers.SerializerMethodField()
+
     class Meta:
         model = Teacher
-        fields = (
-            'classes',
+        exclude = (
+            'department',
+            'user'
         )
+    
+    def get_dept_code(self, obj):
+        return obj.department.dept_code
+    
+    def get_dept_name(self, obj):
+        return obj.department.dept_name
 
 
 class UserSerializer(serializers.ModelSerializer):
