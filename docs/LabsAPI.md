@@ -12,8 +12,9 @@ Authorization: "Token <token>"
     ```js
     [
         {
-            "id": 1,
+            "id": Number,
             "questions": [],
+            "subject": String,
             "exp_name": "hello, world",
             "created": String,  // eg:- "2022-04-24T09:36:26.423130Z"
             "modified": String, // eg:- "2022-04-24T09:36:26.423130Z"
@@ -30,7 +31,7 @@ Authorization: "Token <token>"
     response:
     ```js
     {
-        "id": 1,
+        "id": Number,
         "questions": [],
         "exp_name": "hello, world",
         "created": String,  // eg:- "2022-04-24T09:36:26.423130Z"
@@ -160,7 +161,7 @@ Authorization: "Token <token>"
     response:
     ```js
     {
-        "id": 1,
+        "id": Number,
         "questions": [],
         "exp_name": "hello, world",
         "created": String,  // eg:- "2022-04-24T09:36:26.423130Z"

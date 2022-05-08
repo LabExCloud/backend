@@ -24,12 +24,16 @@ class LabQuestionSerializer(serializers.ModelSerializer):
 
 class LabExperimentSerializer(serializers.ModelSerializer):
     questions = LabQuestionSerializer(many=True, read_only=True)
+    subject = serializers.SerializerMethodField()
 
     class Meta:
         model = LabExperiment
         exclude = (
             'class_a',
         )
+    
+    def get_subject(self, obj):
+        return obj.class_a.subject.sub_name
 
 
 class LabAnswerSerializer(serializers.ModelSerializer):
