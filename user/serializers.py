@@ -72,7 +72,7 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
             'email',
             'phone',
-            'get_image',
+            'image',
             'profile',
             'user_type',
         )

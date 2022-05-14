@@ -74,7 +74,7 @@
             "last_name": String,
             "email": String,
             "phone": String,
-            "get_image": String,
+            "image": String,
             "profile": {
                 "id": Number,
                 "dept_name": String,

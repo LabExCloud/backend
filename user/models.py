@@ -16,11 +16,6 @@ class User(AbstractUser):
     middle_name = models.CharField(max_length=20, blank=True, null=True)
     image = ResizedImageField(size=[400, 400], upload_to='uploads/profile/', blank=True, null=True)
     phone = models.CharField(max_length=13, blank=True, null=True)
-    
-    def get_image(self):
-        if self.image:
-            return 'http://127.0.0.1:8000' + self.image.url
-        return ''
 
 
 class Student(models.Model):
