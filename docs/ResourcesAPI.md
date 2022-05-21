@@ -34,11 +34,20 @@ Authorization: "Token <token>"
     ```js
     {
         "id": Number,
-        "res_name": String,
-        "description": String,
-        "created": String,  // eg:- "2022-04-24T09:36:26.423130Z"
-        "modified": String, // eg:- "2022-04-24T09:36:26.423130Z"
-        "class_a": Number
+        "sub_name": String,
+        "sub_code": String,
+        "sem": Number,
+        "resources": [
+            {
+                "id": Number,
+                "res_name": String,
+                "description": String,
+                "created": String,  // eg:- "2022-04-24T09:36:26.423130Z"
+                "modified": String, // eg:- "2022-04-24T09:36:26.423130Z"
+                "class_a": Number
+            },
+            ...
+        ]
     }
     ```
 
