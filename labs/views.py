@@ -55,11 +55,9 @@ class LabExperimentDetail(APIView):
             c = Class.objects.get(pk=id)
             self.check_object_permissions(request, c)
             serializer = LabExperimentSerializer(data=request.data)
-            print(request.data)
             if(serializer.is_valid(raise_exception=True)):
                 e = serializer.save(class_a=c)
                 return Response(LabExperimentSerializer(e).data)
-            print(serializer.data)
             return Response('invalid data', status=status.HTTP_400_BAD_REQUEST)
         except(Class.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
