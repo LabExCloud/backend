@@ -187,6 +187,7 @@ Authorization: "Token <token>"
     {
         "experiment": Number,
         "question_number": Number,
+        "title": String,
         "question": String,
         "language": Number,
         "mark": Number
@@ -199,6 +200,7 @@ Authorization: "Token <token>"
         "id": Number,
         "testcases": [],
         "question_number": Number,
+        "title": String,
         "question": String,
         "answer": String,
         "language": Number,
@@ -214,6 +216,7 @@ Authorization: "Token <token>"
     {
         "experiment": Number,
         "question_number": Number,
+        "title": String,
         "question": String,
         "language": Number,
         "mark": Number
@@ -226,6 +229,7 @@ Authorization: "Token <token>"
         "id": Number,
         "testcases": [],
         "question_number": Number,
+        "title": String,
         "question": String,
         "answer": String,
         "language": Number,
