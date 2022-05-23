@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/v1/', include('user.urls')),
     path('api/v1/', include('resources.urls')),
     path('api/v1/', include('labs.urls')),
+    path('api/v1/', include('labexam.urls')),
     path('api/v1/', include('classes.urls')),
     path('api/v1/', include('editor.urls')),
     path('api/v1/', include('base.urls')),
