@@ -74,7 +74,7 @@ Authorization: "Token <token>"
 
 
 ### Student
-- List all labs for current student
+- List all labs for current student  
 `GET    /api/v1/labs`
 
     response:
