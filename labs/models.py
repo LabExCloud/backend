@@ -21,6 +21,8 @@ class LabQuestion(models.Model):
     language = models.ForeignKey('editor.Language', on_delete=models.PROTECT)
     answer = models.FileField(upload_to='uploads/lab/correctanswer', blank=True, null=True)
     mark = models.IntegerField()
+    # analysis
+    # stdExecTime = models.TimeField(default=)
 
     def __str__(self):
         return self.experiment.exp_name + ' - ' + self.title
@@ -48,5 +50,5 @@ class LabAnswer(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['question', 'student'], name='unique_answer')
+            models.UniqueConstraint(fields=['question', 'student'], name='unique_lab_answer')
         ]
