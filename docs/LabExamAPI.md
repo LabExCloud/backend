@@ -5,13 +5,70 @@ use request header:
 Authorization: "Token <token>"
 ```
 
-&cross; Get all exams in lab c_id  
+- Get all exams in lab c_id  
 `GET    /api/v1/labexams/<int:c_id>`
 
-&cross; Get detail of lab exam e_id  
+    response:
+    ```js
+    [
+        {
+            "id": Number,
+            "questions": [
+                {
+                    "id": Number,
+                    "testcases": [],
+                    "question_number": Number,
+                    "title": String,
+                    "question": String,
+                    "answer": String,
+                    "mark": Number,
+                    "language": Number
+                },
+                ...
+            ],
+            "subject": String,
+            "exam_name": String,
+            "created": String,
+            "modified": String,
+            "start_date": String,
+            "due_date": String,
+            "total_marks": Number
+        },
+        ...
+    ]
+    ```
+
+- Get detail of lab exam e_id  
 `GET    /api/v1/labexams/exam/<int:e_id>`
 
-&cross; Get detail of question q_id  
+    response:
+    ```js
+    {
+        "id": Number,
+        "questions": [
+            {
+                "id": Number,
+                "testcases": [],
+                "question_number": Number,
+                "title": String,
+                "question": String,
+                "answer": String,
+                "mark": Number,
+                "language": Number
+            },
+            ...
+        ],
+        "subject": String,
+        "exam_name": String,
+        "created": String,
+        "modified": String,
+        "start_date": String,
+        "due_date": String,
+        "total_marks": Number
+    }
+    ```
+
+- Get detail of question q_id  
 `GET    /api/v1/labexams/question/<int:q_id>`
 
 ### Student
@@ -21,34 +78,64 @@ Authorization: "Token <token>"
 - List all lab exams in a semester sem  
 `GET    /api/v1/labs/sem/<int:sem>`
 
-&cross; Add answer for the question q_id  
+- Add answer for the question q_id  
 `POST   /api/v1/labexams/answer/<int:q_id>`
 
 
 ### Teacher
-&cross; create a lab exam in the class class_id  
+- create a lab exam in the class class_id  
 `POST   /api/v1/labexams/exam/t:class_id>`
 
-&cross; update a lab exam e_id  
+    request:
+    ```js
+    {
+        "exam_name": String,
+        "start_date": String,
+        "due_date": String,
+        "total_marks": Number
+    }
+    ```
+
+    response:
+    ```js
+    {
+        "id": Number,
+        "questions": [],
+        "subject": String,
+        "exam_name": String,
+        "created": String,
+        "modified": String,
+        "start_date": String,
+        "due_date": String,
+        "total_marks": Number
+    }
+    ```
+
+- update a lab exam e_id  
 `PUT    /api/v1/labexams/exam/t:e_id>`
 
-&cross; delete a lab exam e_d  
+    request & response:  
+    same as above
+
+- delete a lab exam e_d  
 `DELETE  /api/v1/labexams/exam/t:e_id>`
 
-&cross; create a question for lab exam e_id  
+- create a question for lab exam e_id  
 `POST    /api/v1/labexams/question/<int:e_id>`  
 
-&cross; edit a question q_id  
+- edit a question q_id  
 `PUT     /api/v1/labexams/question/<int:q_id>`  
 
-&cross; delete a question q_id  
+- delete a question q_id  
 `DELETE  /api/v1/labexams/question/<int:q_id>`  
 
-&cross; add a testcase for question q_id  
+- add a testcase for question q_id  
 `POST    /api/v1/labexams/testcase/<int:q_id>`
 
-&cross; edit testcase t_id  
+- edit testcase t_id  
 `PUT     /api/v1/labexams/testcase/<int:t_id>`
 
-&cross; delete testcase t_id  
+- delete testcase t_id  
 `DELETE  /api/v1/labexams/testcase/<int:t_id>`
+
+Refer LabAPI.md for headers, request and response for question, answer and testcase.
