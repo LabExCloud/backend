@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'labs',
     'classes',
     'editor',
+    'labexam',
 ]
 
 CORS_ALLOWED_ORIGINS = [
