@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from base.serializers import DepartmentSerializer
+
 from classes.models import Class
 
 from .models import Student, Teacher, User
@@ -8,16 +10,14 @@ from .models import Student, Teacher, User
 class StudentSerializer(serializers.ModelSerializer):
     semester = serializers.SerializerMethodField()
     semesters = serializers.SerializerMethodField()
-    dept_name = serializers.SerializerMethodField()
-    dept_code = serializers.SerializerMethodField()
+    department = DepartmentSerializer(read_only=True)
     year = serializers.SerializerMethodField()
     stream = serializers.SerializerMethodField()
 
     class Meta:
         model = Student
         exclude = (
-            'department',
-            'user'
+            'user',
         )
     
     def get_semester(self, obj):
@@ -27,12 +27,6 @@ class StudentSerializer(serializers.ModelSerializer):
         semesters = [i.semester.sem for i in obj.classes.all()]
         return list(set(semesters))
     
-    def get_dept_code(self, obj):
-        return obj.department.dept_code
-    
-    def get_dept_name(self, obj):
-        return obj.department.dept_name
-
     def get_year(self, obj):
         return obj.batch.year
 
@@ -41,22 +35,14 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
-    dept_name = serializers.SerializerMethodField()
-    dept_code = serializers.SerializerMethodField()
+    department = DepartmentSerializer(read_only=True)
     classes = serializers.PrimaryKeyRelatedField(queryset=Class.objects.all(), many=True)
 
     class Meta:
         model = Teacher
         exclude = (
-            'department',
-            'user'
+            'user',
         )
-    
-    def get_dept_code(self, obj):
-        return obj.department.dept_code
-    
-    def get_dept_name(self, obj):
-        return obj.department.dept_name
 
 
 class UserSerializer(serializers.ModelSerializer):
