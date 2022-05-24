@@ -44,8 +44,11 @@
             "get_image": String,
             "profile": {
                 "id": Number,
-                "dept_name": String,
-                "dept_code": String,
+                "department: {
+                    "id" : Number,
+                    "dept_name": String,
+                    "dept_code": String,
+                }
                 "semester": Number,
                 "semesters": [
                     Number,
@@ -77,8 +80,11 @@
             "image": String,
             "profile": {
                 "id": Number,
-                "dept_name": String,
-                "dept_code": String,
+                "department: {
+                    "id" : Number,
+                    "dept_name": String,
+                    "dept_code": String,
+                }
                 "classes": [
                     Number,
                     ...
