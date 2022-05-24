@@ -24,7 +24,7 @@ class LabExamQuestion(models.Model):
     mark = models.IntegerField()
 
     def __str__(self):
-        return self.experiment.exam_name + ' - ' + self.title
+        return self.exam.exam_name + ' - ' + self.title
 
 
 class LabExamTestCase(models.Model):

@@ -95,7 +95,7 @@ class LabExamQuestionDetail(APIView):
     def put(self, request, id):
         try:
             q = LabExamQuestion.objects.get(pk=id)
-            self.check_object_permissions(request, q.experiment.class_a)
+            self.check_object_permissions(request, q.exam.class_a)
             serializer = LabExamQuestionSerializer(q, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
@@ -108,7 +108,7 @@ class LabExamQuestionDetail(APIView):
     def delete(self, request, id):
         try:
             q = LabExamQuestion.objects.get(pk=id)
-            self.check_object_permissions(request, q.experiment.class_a)
+            self.check_object_permissions(request, q.exam.class_a)
             q.delete()
             return Response(status=status.HTTP_200_OK)
         except(LabExamQuestion.DoesNotExist):
@@ -130,7 +130,7 @@ class LabExamTestCaseDetail(APIView):
     def post(self, request, id):
         try:
             q = LabExamQuestion.objects.get(pk=id)
-            self.check_object_permissions(request, q.experiment.class_a)
+            self.check_object_permissions(request, q.exam.class_a)
             serializer = LabExamTestCaseSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(question=q)
@@ -142,7 +142,7 @@ class LabExamTestCaseDetail(APIView):
     def put(self, request, id):
         try:
             t = LabExamTestCase.objects.get(pk=id)
-            self.check_object_permissions(request, t.question.experiment.class_a)
+            self.check_object_permissions(request, t.question.exam.class_a)
             serializer = LabExamTestCaseSerializer(t, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
@@ -154,7 +154,7 @@ class LabExamTestCaseDetail(APIView):
     def delete(self, request, id):
         try:
             t = LabExamTestCase.objects.get(pk=id)
-            self.check_object_permissions(request, t.question.experiment.class_a)
+            self.check_object_permissions(request, t.question.exam.class_a)
             t.delete()
             return Response('deleted')
         except(LabExamTestCase.DoesNotExist):
@@ -168,7 +168,7 @@ class LabExamAnswerDetail(APIView):
     def post(self, request, id):
         try:
             q = LabExamQuestion.objects.get(pk=id)
-            self.check_object_permissions(request, q.experiment.class_a)
+            self.check_object_permissions(request, q.exam.class_a)
             request.data['student'] = request.user.student.id
             request.data['question'] = id
             serializer = LabExamAnswerSerializer(data=request.data)
@@ -186,7 +186,7 @@ class LabExamAnswerDetail(APIView):
     def put(self, request, id):
         try:
             a = LabExamAnswer.objects.get(pk=id)
-            self.check_object_permissions(request, a.question.experiment.class_a)
+            self.check_object_permissions(request, a.question.exam.class_a)
             request.data['student'] = request.user.student.id
             request.data['question'] = a.question.id
             serializer = LabExamAnswerSerializer(a, data=request.data)
@@ -199,7 +199,7 @@ class LabExamAnswerDetail(APIView):
     def delete(self, request, id):
         try:
             a = LabExamAnswer.objects.get(pk=id)
-            self.check_object_permissions(request, a.question.experiment.class_a)
+            self.check_object_permissions(request, a.question.exam.class_a)
             a.delete()
             return Response('deleted')
         except(LabExamAnswer.DoesNotExist):
