@@ -13,6 +13,8 @@ from classes.serializers import ClassSerializer
 from classes.permissions import HasPermission
 from classes.models import Class
 
+from user.models import User
+
 
 class LabsList(APIView):
     permission_classes = [IsAuthenticated & HasPermission]
@@ -180,6 +182,17 @@ class LabTestCaseDetail(APIView):
 class LabAnswerDetail(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     permission_classes = [IsAuthenticated & HasAnswerPermission]
+
+    def get(self, request, id):
+        try:
+            answer = LabAnswer.objects.get(pk=id)
+            if (answer.student.user == request.user) | (request.user.user_type == User.UserType.TEACHER):
+                serializer = LabAnswerSerializer(answer)
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_403_FORBIDDEN)
+        except(LabAnswer.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, id):
         try:
