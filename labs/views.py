@@ -234,3 +234,14 @@ class LabAnswerDetail(APIView):
         except(LabAnswer.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
     
+
+class LabAnswersList(APIView):
+    def get(self, request, id):
+        if request.user.user_type == User.UserType.TEACHER:
+            try:
+                question = LabQuestion.objects.get(pk=id)
+                serializer = LabAnswerSerializer(question.answers, many=True)
+                return Response(serializer.data)
+            except(LabQuestion.DoesNotExist):
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_403_FORBIDDEN)
