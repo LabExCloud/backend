@@ -107,6 +107,25 @@ Authorization: "Token <token>"
 
     response: same as above
 
+
+- View answer for the answer a_id
+`GET    /api/v1/labs/answer/<int:a_id>`
+
+    response:
+    ```js
+    {
+        "id": Number,
+        "answer": String,
+        "submitted": String,
+        "modified": String,
+        "execution_tries": Number,
+        "execution_time": Number,
+        "total_marks": Number,
+        "question": Number,
+        "student": Number
+    }
+    ```
+
 - Add answer for the question q_id  
 `POST   /api/v1/labs/answer/<int:q_id>`
 
@@ -296,3 +315,43 @@ Authorization: "Token <token>"
 
 - delete testcase t_id  
 `DELETE  /api/v1/labs/testcase/<int:t_id>`
+
+
+- list all answers of question q_id
+`GET    /api/v1/labs/answers/<int:q_id>`
+
+    response:
+    ```js
+    [
+        {
+            "id": Number,
+            "answer": String,
+            "submitted": String,
+            "modified": String,
+            "execution_tries": Number,
+            "execution_time": Number,
+            "total_marks": Number,
+            "question": Number,
+            "student": Number
+        },
+        ...
+    ]
+    ```
+
+- View answer for the answer a_id
+`GET    /api/v1/labs/answer/<int:a_id>`
+
+    response:
+    ```js
+    {
+        "id": Number,
+        "answer": String,
+        "submitted": String,
+        "modified": String,
+        "execution_tries": Number,
+        "execution_time": Number,
+        "total_marks": Number,
+        "question": Number,
+        "student": Number
+    }
+    ```
