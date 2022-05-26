@@ -325,6 +325,14 @@ Authorization: "Token <token>"
     [
         {
             "id": Number,
+            "student": {
+                "id": Number,
+                "username": String,
+                "first_name": String,
+                "last_name": String,
+                "email": String,
+                "phone": String
+            },
             "answer": String,
             "submitted": String,
             "modified": String,
@@ -345,6 +353,14 @@ Authorization: "Token <token>"
     ```js
     {
         "id": Number,
+        "student": {
+            "id": Number,
+            "username": String,
+            "first_name": String,
+            "last_name": String,
+            "email": String,
+            "phone": String
+        },
         "answer": String,
         "submitted": String,
         "modified": String,

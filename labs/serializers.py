@@ -4,6 +4,8 @@ from .models import LabExperiment, LabQuestion, LabTestCase, LabAnswer
 
 from classes.models import Class
 
+from user.serializers import LightUserSerializer
+
 
 class LabTestCaseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,6 +39,11 @@ class LabExperimentSerializer(serializers.ModelSerializer):
 
 
 class LabAnswerSerializer(serializers.ModelSerializer):
+    student = serializers.SerializerMethodField()
     class Meta:
         model = LabAnswer
         fields = '__all__'
+
+    def get_student(self, obj):
+        serializer = LightUserSerializer(obj.student.user)
+        return serializer.data
