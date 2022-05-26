@@ -235,3 +235,20 @@ Authorization: "Token <token>"
 
 - delete a class c_id  
 `DELETE    /api/v1/class/<int:c_id>`
+
+- List all students in a class c_id
+`GET    /api/v1/class/students/<int:c_d>`
+
+    response:
+    ```js
+    [
+        {
+            "id": Number,
+            "username": String,
+            "first_name": String,
+            "last_name": String,
+            "email": String,
+            "phone": String
+        },
+        ...
+    ]

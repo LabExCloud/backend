@@ -24,7 +24,7 @@ class Student(models.Model):
     department = models.ForeignKey('base.Department', on_delete=models.PROTECT)
     semester = models.ForeignKey('base.Semester', on_delete=models.PROTECT)
     batch = models.ForeignKey('base.Batch', on_delete=models.CASCADE)
-    classes = models.ManyToManyField('classes.Class')
+    classes = models.ManyToManyField('classes.Class', related_name='students')
 
     def __str__(self):
         return self.user.username
