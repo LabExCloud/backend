@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from user.models import User
+from user.models import Student, User
 from user.permissions import IsTeacher
 from user.serializers import LightUserSerializer
 
@@ -80,11 +80,43 @@ class ClassDetail(APIView):
 class StudentList(APIView):
     permission_classes = (IsAuthenticated, IsTeacher, )
     def get(self, request, id):
-            try:
-                c = Class.objects.get(pk=id)
-                students = [i.user for i in c.students.all()]
-                serializer = LightUserSerializer(students, many=True)
-                return Response(serializer.data)
-            except(Class.DoesNotExist):
-                return Response(status=status.HTTP_404_NOT_FOUND)
+        try:
+            c = Class.objects.get(pk=id)
+            students = [i.user for i in c.students.all()]
+            serializer = LightUserSerializer(students, many=True)
+            return Response(serializer.data)
+        except(Class.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
+
+class AddRemoveStudentClass(APIView):
+    permission_classes = (IsAuthenticated, IsTeacher, )
+    def post(slef, request, c_id, s_id):
+        try:
+            student = Student.objects.get(pk=s_id)
+            c = Class.objects.get(pk=c_id)
+            classes = list(student.classes.all())
+            if(c not in classes):
+                classes.append(c)
+            student.classes.set(classes)
+            student.save()
+            return Response('added')
+        except(Class.DoesNotExist):
+            return Response('class does not exist', status=status.HTTP_404_NOT_FOUND)
+        except(Student.DoesNotExist):
+            return Response('student class does not exist', status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, c_id, s_id):
+        try:
+            student = Student.objects.get(pk=s_id)
+            c = Class.objects.get(pk=c_id)
+            classes = list(student.classes.all())
+            if(c in classes):
+                classes.remove(c)
+            student.classes.set(classes)
+            student.save()
+            return Response('removed')
+        except(Class.DoesNotExist):
+            return Response('class does not exist', status=status.HTTP_404_NOT_FOUND)
+        except(Student.DoesNotExist):
+            return Response('student class does not exist', status=status.HTTP_404_NOT_FOUND)
