@@ -77,7 +77,7 @@ class ClassDetail(APIView):
 
 
 
-class StudentList(APIView):
+class StudentListClass(APIView):
     permission_classes = (IsAuthenticated, IsTeacher, )
     def get(self, request, id):
         try:
