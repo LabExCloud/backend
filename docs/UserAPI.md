@@ -93,3 +93,23 @@
             "user_type": String    // 'student', 'teacher', 'admin'
         }
         ```
+
+
+## Teacher
+- List all students
+`GET    /api/v1/class/students`
+
+    response:
+    ```js
+    [
+        {
+            "id": Number,
+            "username": String,
+            "first_name": String,
+            "last_name": String,
+            "email": String,
+            "phone": String,
+            "student": Number
+        },
+        ...
+    ]
