@@ -198,11 +198,10 @@ class LabAnswerDetail(APIView):
         try:
             q = LabQuestion.objects.get(pk=id)
             self.check_object_permissions(request, q.experiment.class_a)
-            request.data['student'] = request.user.student.id
             request.data['question'] = id
             serializer = LabAnswerSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                serializer.save()
+                serializer.save(student=request.user.student)
                 return Response(serializer.data)
         except(LabQuestion.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -216,11 +215,10 @@ class LabAnswerDetail(APIView):
         try:
             a = LabAnswer.objects.get(pk=id)
             self.check_object_permissions(request, a.question.experiment.class_a)
-            request.data['student'] = request.user.student.id
             request.data['question'] = a.question.id
             serializer = LabAnswerSerializer(a, data=request.data)
             if serializer.is_valid(raise_exception=True):
-                serializer.save()
+                serializer.save(student=request.user.student)
                 return Response(serializer.data)
         except(LabAnswer.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
