@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from user.models import User
+from user.permissions import IsTeacher
 from user.serializers import LightUserSerializer
 
 from .serializers import ClassSerializer
@@ -77,9 +78,8 @@ class ClassDetail(APIView):
 
 
 class StudentList(APIView):
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, IsTeacher, )
     def get(self, request, id):
-        if request.user.user_type == User.UserType.TEACHER:
             try:
                 c = Class.objects.get(pk=id)
                 students = [i.user for i in c.students.all()]
@@ -87,5 +87,4 @@ class StudentList(APIView):
                 return Response(serializer.data)
             except(Class.DoesNotExist):
                 return Response(status=status.HTTP_404_NOT_FOUND)
-        else:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+
