@@ -83,3 +83,17 @@ class LightUserSerializer(serializers.ModelSerializer):
             'email',
             'phone',
         )
+
+
+class LightStudentUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'student',
+        )
