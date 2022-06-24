@@ -114,6 +114,24 @@
         ...
     ]
 
+- List all teachers
+`GET    /api/v1/teachers`
+
+    response:
+    ```js
+    [
+        {
+            "id": Number,
+            "username": String,
+            "first_name": String,
+            "last_name": String,
+            "email": String,
+            "phone": String,
+            "teacher": Number
+        },
+        ...
+    ]
+
 - Create Student Accounts from csv file
 `POST   /api/v1/students/csv`
 

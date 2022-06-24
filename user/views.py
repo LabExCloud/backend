@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Student, Teacher, User
-from .serializers import LightStudentUserSerializer, UserSerializer
+from .serializers import LightStudentUserSerializer, UserSerializer, LightTeacherUserSerializer
 from .permissions import IsTeacher, OwnProfilePermission
 
 from base.models import Semester, Batch
@@ -28,6 +28,15 @@ class StudentList(APIView):
         students = User.objects.filter(user_type=User.UserType.STUDENT)
         serializer = LightStudentUserSerializer(students, many=True)
         return Response(serializer.data)
+
+
+class TeacherList(APIView):
+    permission_classes = (IsAuthenticated, IsTeacher, )
+    def get(self, request):
+        teachers = User.objects.filter(user_type=User.UserType.TEACHER)
+        serializer = LightTeacherUserSerializer(teachers, many=True)
+        return Response(serializer.data)
+
 
 class CreateStudentsCSV(APIView):
     permission_classes = (IsAuthenticated, IsTeacher, )
