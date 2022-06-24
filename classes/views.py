@@ -120,3 +120,36 @@ class AddRemoveStudentClass(APIView):
             return Response('class does not exist', status=status.HTTP_404_NOT_FOUND)
         except(Student.DoesNotExist):
             return Response('student class does not exist', status=status.HTTP_404_NOT_FOUND)
+
+class AddStudentClassCsv(APIView):
+    permission_classes = (IsAuthenticated, IsTeacher, )
+    def post(self, request, c_id):
+        try:
+            c = Class.objects.get(pk=c_id)
+        except(Class.DoesNotExist):
+            return Response('class does not exist', status=status.HTTP_404_NOT_FOUND)
+        
+        upload_file = request.FILES['file']
+        students = upload_file.read().splitlines()
+        students = [str(i, 'UTF-8') for i in students]
+        err = []
+        s = []
+        for i in students:
+            try:
+                student = Student.objects.get(user__username=i)
+                s.append(student)
+            except(Student.DoesNotExist):
+                err.append('{0}: student does not exist'.format(i))
+        
+        if err == []:
+            count = 0
+            for st in s:
+                classes = list(st.classes.all())
+                if(c not in classes):
+                    classes.append(c)
+                    st.classes.set(classes)
+                    st.save()
+                    count += 1
+            return Response('{0} students added'.format(count))
+        else:
+            return Response(', '.join(err), status=status.HTTP_404_NOT_FOUND)

@@ -259,3 +259,19 @@ Authorization: "Token <token>"
 
 - Remove student s_id from class c_id  
 `POST   /api/v1/class/student/<int:c_id>/<int:s_id>`
+
+- Add list of students from uploaded csv file to class c_id  
+`POST   /api/v1/class/student/<int:c_id>`
+
+    header:
+    ```http
+    Content-Type: "multipart/form-data"
+    ```
+    
+    request:
+    ```js
+    {
+        "file": File    // csv file with usernames in seperate lines
+    }
+    ```
+    
