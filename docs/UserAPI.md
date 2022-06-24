@@ -97,7 +97,7 @@
 
 ## Teacher
 - List all students
-`GET    /api/v1/class/students`
+`GET    /api/v1/students`
 
     response:
     ```js
