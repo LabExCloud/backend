@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from user.models import Teacher
-from user.serializers import LightUserSerializer
+from user.serializers import LightUserSerializer, LightTeacherUserSerializer
 
 from .models import Class
 
@@ -41,7 +41,7 @@ class ClassSerializer(serializers.ModelSerializer):
             'subject': SubjectSerializer(value.subject).data,
             'batch': BatchSerializer(value.batch).data,
             'owner': LightUserSerializer(value.owner.user).data,
-            'teachers': LightUserSerializer([i.user for i in value.teachers.all()], many=True).data,
+            'teachers': LightTeacherUserSerializer([i.user for i in value.teachers.all()], many=True).data,
             'is_lab': value.is_lab
         }
     
