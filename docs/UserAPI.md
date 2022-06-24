@@ -113,3 +113,18 @@
         },
         ...
     ]
+
+- Create Student Accounts from csv file
+`POST   /api/v1/students/csv`
+
+    header:
+    ```http
+    Content-Type: "multipart/form-data"
+    ```
+    
+    request:
+    ```js
+    {
+        "file": File    // csv file:  rollno,username,password,firstname,middlename,lastname,email,phone,semester,stream,year
+    }
+    ```
