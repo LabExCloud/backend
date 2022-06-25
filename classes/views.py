@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from user.models import Student, User
 from user.permissions import IsTeacher
-from user.serializers import LightUserSerializer
+from user.serializers import LightStudentUserSerializer
 
 from .serializers import ClassSerializer
 from .models import Class
@@ -83,7 +83,7 @@ class StudentListClass(APIView):
         try:
             c = Class.objects.get(pk=id)
             students = [i.user for i in c.students.all()]
-            serializer = LightUserSerializer(students, many=True)
+            serializer = LightStudentUserSerializer(students, many=True)
             return Response(serializer.data)
         except(Class.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
