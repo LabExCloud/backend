@@ -49,7 +49,6 @@ Authorization: "Token <token>"
     {
         "id": Number,
         "testcases": [],
-        "question_number": Number,
         "question": String,
         "answer": String,
         "language": Number,
@@ -205,7 +204,6 @@ Authorization: "Token <token>"
     ```js
     {
         "experiment": Number,
-        "question_number": Number,
         "title": String,
         "question": String,
         "language": Number,
@@ -218,7 +216,6 @@ Authorization: "Token <token>"
     {
         "id": Number,
         "testcases": [],
-        "question_number": Number,
         "title": String,
         "question": String,
         "answer": String,
@@ -234,7 +231,6 @@ Authorization: "Token <token>"
     ```js
     {
         "experiment": Number,
-        "question_number": Number,
         "title": String,
         "question": String,
         "language": Number,
@@ -247,7 +243,6 @@ Authorization: "Token <token>"
     {
         "id": Number,
         "testcases": [],
-        "question_number": Number,
         "title": String,
         "question": String,
         "answer": String,
