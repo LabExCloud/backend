@@ -22,7 +22,8 @@ class LabQuestion(models.Model):
     answer = models.FileField(upload_to='uploads/lab/correctanswer', blank=True, null=True)
     mark = models.IntegerField()
     # analysis
-    # stdExecTime = models.TimeField(default=)
+    # stdExecTime = models.IntegerField(default=5)
+
 
     def __str__(self):
         return self.experiment.exp_name + ' - ' + self.title
