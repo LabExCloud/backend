@@ -84,3 +84,16 @@ class CreateStudentsCSV(APIView):
             student.save()
             count += 1
         return Response('{0} students added'.format(count))
+
+
+class ChangeProfileImage(APIView):
+    def put(self, request):
+        return Response()
+
+
+class ChangePassword(APIView):
+    permission_classes = (IsAuthenticated, OwnProfilePermission,)
+    def put(self, request):
+        request.user.set_password(request.data['password'])
+        request.user.save()
+        return Response()

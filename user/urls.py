@@ -8,4 +8,5 @@ urlpatterns = [
     path('students', views.StudentList.as_view()),
     path('teachers', views.TeacherList.as_view()),
     path('students/csv', views.CreateStudentsCSV.as_view()),
+    path('password', views.ChangePassword.as_view()),
 ]
