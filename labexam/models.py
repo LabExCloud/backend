@@ -16,7 +16,6 @@ class LabExam(models.Model):
 
 class LabExamQuestion(models.Model):
     exam = models.ForeignKey('LabExam', related_name='questions', on_delete=models.CASCADE)
-    question_number = models.PositiveIntegerField()
     title = models.CharField(max_length=50)
     question = models.TextField(max_length=500, blank=True)
     language = models.ForeignKey('editor.Language', on_delete=models.PROTECT)

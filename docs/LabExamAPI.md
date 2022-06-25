@@ -17,7 +17,6 @@ Authorization: "Token <token>"
                 {
                     "id": Number,
                     "testcases": [],
-                    "question_number": Number,
                     "title": String,
                     "question": String,
                     "answer": String,
@@ -49,7 +48,6 @@ Authorization: "Token <token>"
             {
                 "id": Number,
                 "testcases": [],
-                "question_number": Number,
                 "title": String,
                 "question": String,
                 "answer": String,
