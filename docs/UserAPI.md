@@ -146,3 +146,6 @@
         "file": File    // csv file:  rollno,username,password,firstname,middlename,lastname,email,phone,semester,stream,year
     }
     ```
+
+- Delete Student sid
+`DELETE /api/v1/student/<int:sid>`

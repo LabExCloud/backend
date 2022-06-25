@@ -4,6 +4,7 @@ from io import StringIO
 from django.db.utils import IntegrityError
 from django.db.models import Q
 
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -28,6 +29,17 @@ class StudentList(APIView):
         students = User.objects.filter(user_type=User.UserType.STUDENT)
         serializer = LightStudentUserSerializer(students, many=True)
         return Response(serializer.data)
+
+
+class StudentDetail(APIView):
+    permission_classes = (IsAuthenticated, IsTeacher, )
+    def delete(self, request, sid):
+        try:
+            student = Student.objects.get(pk=sid)
+            student.delete()
+        except(Student.DoesNotExist):
+            return Response('student does not exist', status=status.HTTP_404_NOT_FOUND)
+        return Response('deleted')
 
 
 class TeacherList(APIView):
