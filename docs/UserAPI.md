@@ -94,6 +94,15 @@
         }
         ```
 
+- Change password  
+`PUT    /api/v1/password`
+
+    request:
+    ```js
+    {
+        "password": String
+    }
+    ```
 
 ## Teacher
 - List all students
