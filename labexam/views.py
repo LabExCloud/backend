@@ -172,6 +172,8 @@ class LabExamAnswerStudentQuestion(APIView):
             return Response(serializer.data)
         except(LabExamQuestion.DoesNotExist):
             return Response('question does not exist', status=status.HTTP_404_NOT_FOUND)
+        except(LabExamAnswer.DoesNotExist):
+            return Response('answer does not exist', status=status.HTTP_404_NOT_FOUND)
 
 
 class LabExamAnswerDetail(APIView):
