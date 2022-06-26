@@ -13,6 +13,7 @@ from classes.permissions import HasPermission
 from classes.models import Class
 from labs.permissions import HasAnswerPermission
 
+from user.models import Student, User
 
 # Create your views here.
 
@@ -159,6 +160,18 @@ class LabExamTestCaseDetail(APIView):
             return Response('deleted')
         except(LabExamTestCase.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class LabExamAnswerStudentQuestion(APIView):
+    permission_classes = (IsAuthenticated, )
+    def get(self, request, id):
+        try:
+            student = Student.objects.get(user=request.user)
+            answer = LabExamQuestion.objects.get(pk=id).answers.get(student=student)
+            serializer = LabExamAnswerSerializer(answer)
+            return Response(serializer.data)
+        except(LabExamQuestion.DoesNotExist):
+            return Response('question does not exist', status=status.HTTP_404_NOT_FOUND)
 
 
 class LabExamAnswerDetail(APIView):
