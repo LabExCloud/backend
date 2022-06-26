@@ -88,6 +88,8 @@ class CreateStudentsCSV(APIView):
 
 class ChangeProfileImage(APIView):
     def put(self, request):
+        file = request.FILES['image']
+        request.user.image.save(file.name, file)
         return Response()
 
 

@@ -9,4 +9,5 @@ urlpatterns = [
     path('teachers', views.TeacherList.as_view()),
     path('students/csv', views.CreateStudentsCSV.as_view()),
     path('password', views.ChangePassword.as_view()),
+    path('profilepicture', views.ChangeProfileImage.as_view()),
 ]

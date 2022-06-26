@@ -104,6 +104,21 @@
     }
     ```
 
+- Change Profile Image  
+`PUT    /api/v1/profileimage`
+
+    header:
+    ```http
+    Content-Type: "multipart/form-data"
+    ```
+
+    request:
+    ```js
+    {
+        "image": File
+    }
+    ```
+
 ## Teacher
 - List all students
 `GET    /api/v1/students`
