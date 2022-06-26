@@ -366,3 +366,29 @@ Authorization: "Token <token>"
         "student": Number
     }
     ```
+
+- Get answer for the question q_id
+`GET    /api/v1/labs/answer/question/<int:q_id>`
+
+    response:
+    ```js
+    {
+        "id": Number,
+        "student": {
+            "id": Number,
+            "username": String,
+            "first_name": String,
+            "last_name": String,
+            "email": String,
+            "phone": String
+        },
+        "answer": String,
+        "submitted": String,
+        "modified": String,
+        "execution_tries": Number,
+        "execution_time": Number,
+        "total_marks": Number,
+        "question": Number,
+        "student": Number
+    }
+    ```

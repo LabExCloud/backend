@@ -13,7 +13,7 @@ from classes.serializers import ClassSerializer
 from classes.permissions import HasPermission
 from classes.models import Class
 
-from user.models import User
+from user.models import Student, User
 
 
 class LabsList(APIView):
@@ -177,6 +177,18 @@ class LabTestCaseDetail(APIView):
             return Response('deleted')
         except(LabTestCase.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class LabAnswerStudentQuestion(APIView):
+    permission_classes = (IsAuthenticated, )
+    def get(self, request, id):
+        try:
+            student = Student.objects.get(user=request.user)
+            answer = LabQuestion.objects.get(pk=id).answers.get(student=student)
+            serializer = LabAnswerSerializer(answer)
+            return Response(serializer.data)
+        except(LabQuestion.DoesNotExist):
+            return Response('question does not exist', status=status.HTTP_404_NOT_FOUND)
 
 
 class LabAnswerDetail(APIView):
