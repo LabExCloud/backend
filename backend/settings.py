@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-xv7fll(484n3+&8jwy0vz&p*2=r1ci@edga@8b1&wz-8ptc%5b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+]
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -54,6 +56,7 @@ INSTALLED_APPS = [
     'labexam',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
 ]
