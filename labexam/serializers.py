@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from user.serializers import LightUserSerializer
+
 from .models import LabExam, LabExamAnswer, LabExamQuestion, LabExamTestCase
 
 
@@ -35,6 +37,11 @@ class LabExamSerializer(serializers.ModelSerializer):
 
 
 class LabExamAnswerSerializer(serializers.ModelSerializer):
+    student = serializers.SerializerMethodField()
     class Meta:
         model = LabExamAnswer
         fields = '__all__'
+
+    def get_student(self, obj):
+        serializer = LightUserSerializer(obj.student.user)
+        return serializer.data
