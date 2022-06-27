@@ -184,11 +184,11 @@ class LabExamAnswerDetail(APIView):
         try:
             q = LabExamQuestion.objects.get(pk=id)
             self.check_object_permissions(request, q.exam.class_a)
-            request.data['student'] = request.user.student.id
+            # request.data['student'] = request.user.student.id
             request.data['question'] = id
             serializer = LabExamAnswerSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                serializer.save()
+                serializer.save(student=request.user.student)
                 return Response(serializer.data)
         except(LabExamQuestion.DoesNotExist):
             return Response(status=status.HTTP_404_NOT_FOUND)
