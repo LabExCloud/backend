@@ -10,4 +10,5 @@ urlpatterns = [
     path('labexams/testcase/<int:id>', views.LabExamTestCaseDetail.as_view()),
     path('labexams/answer/<int:id>', views.LabExamAnswerDetail.as_view()),
     path('labexams/answer/question/<int:id>', views.LabExamAnswerStudentQuestion.as_view()),
+    path('labexams/answers/<int:id>', views.LabExamAnswersList.as_view()),
 ]
